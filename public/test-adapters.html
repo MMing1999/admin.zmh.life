@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编辑器适配器测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .test-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .editor-container {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 10px 0;
+            min-height: 300px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #f0f0f0;
+        }
+        
+        .btn.primary {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>编辑器适配器测试</h1>
+    
+    <div class="test-section">
+        <div class="test-title">Toast UI Editor 测试</div>
+        <div class="editor-container" id="toast-container"></div>
+        <button class="btn" onclick="testToastGet()">获取内容</button>
+        <button class="btn" onclick="testToastSet()">设置内容</button>
+        <button class="btn primary" onclick="testToastInit()">初始化</button>
+        <button class="btn" onclick="testToastDestroy()">销毁</button>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">Editor.js 测试</div>
+        <div class="editor-container" id="ej-container"></div>
+        <button class="btn" onclick="testEJGet()">获取内容</button>
+        <button class="btn" onclick="testEJSet()">设置内容</button>
+        <button class="btn primary" onclick="testEJInit()">初始化</button>
+        <button class="btn" onclick="testEJDestroy()">销毁</button>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">测试日志</div>
+        <div class="log" id="test-log"></div>
+        <button class="btn" onclick="clearLog()">清空日志</button>
+    </div>
+
+    <script type="module">
+        import { ToastAdapter, EJAdapter } from './editor-adapters.js';
+        
+        // 创建适配器实例
+        const toastAdapter = new ToastAdapter();
+        const ejAdapter = new EJAdapter();
+        
+        // 日志函数
+        function log(message) {
+            const logEl = document.getElementById('test-log');
+            const time = new Date().toLocaleTimeString();
+            logEl.innerHTML += `[${time}] ${message}<br>`;
+            logEl.scrollTop = logEl.scrollHeight;
+            console.log(message);
+        }
+        
+        // Toast UI Editor 测试
+        window.testToastInit = async function() {
+            try {
+                log('开始初始化 Toast UI Editor...');
+                await toastAdapter.init(document.getElementById('toast-container'), '# Toast UI Editor 测试\n\n这是一个 **Markdown** 编辑器。');
+                log('Toast UI Editor 初始化成功');
+            } catch (error) {
+                log('Toast UI Editor 初始化失败: ' + error.message);
+            }
+        };
+        
+        window.testToastGet = async function() {
+            try {
+                const content = await toastAdapter.get();
+                log('Toast UI 内容: ' + JSON.stringify(content).substring(0, 100) + '...');
+            } catch (error) {
+                log('获取 Toast UI 内容失败: ' + error.message);
+            }
+        };
+        
+        window.testToastSet = function() {
+            try {
+                toastAdapter.set('# 新内容\n\n这是通过 `set()` 方法设置的内容。');
+                log('Toast UI 内容设置成功');
+            } catch (error) {
+                log('设置 Toast UI 内容失败: ' + error.message);
+            }
+        };
+        
+        window.testToastDestroy = function() {
+            try {
+                toastAdapter.destroy();
+                document.getElementById('toast-container').innerHTML = '';
+                log('Toast UI Editor 已销毁');
+            } catch (error) {
+                log('销毁 Toast UI Editor 失败: ' + error.message);
+            }
+        };
+        
+        // Editor.js 测试
+        window.testEJInit = async function() {
+            try {
+                log('开始初始化 Editor.js...');
+                const initialData = {
+                    blocks: [
+                        {
+                            type: 'header',
+                            data: {
+                                text: 'Editor.js 测试',
+                                level: 1
+                            }
+                        },
+                        {
+                            type: 'paragraph',
+                            data: {
+                                text: '这是一个 <b>Block</b> 编辑器。'
+                            }
+                        }
+                    ]
+                };
+                await ejAdapter.init(document.getElementById('ej-container'), JSON.stringify(initialData));
+                log('Editor.js 初始化成功');
+            } catch (error) {
+                log('Editor.js 初始化失败: ' + error.message);
+            }
+        };
+        
+        window.testEJGet = async function() {
+            try {
+                const content = await ejAdapter.get();
+                log('Editor.js 内容: ' + content.substring(0, 100) + '...');
+            } catch (error) {
+                log('获取 Editor.js 内容失败: ' + error.message);
+            }
+        };
+        
+        window.testEJSet = async function() {
+            try {
+                const newData = {
+                    blocks: [
+                        {
+                            type: 'header',
+                            data: {
+                                text: '新内容',
+                                level: 1
+                            }
+                        },
+                        {
+                            type: 'paragraph',
+                            data: {
+                                text: '这是通过 <code>set()</code> 方法设置的内容。'
+                            }
+                        }
+                    ]
+                };
+                await ejAdapter.set(JSON.stringify(newData));
+                log('Editor.js 内容设置成功');
+            } catch (error) {
+                log('设置 Editor.js 内容失败: ' + error.message);
+            }
+        };
+        
+        window.testEJDestroy = function() {
+            try {
+                ejAdapter.destroy();
+                document.getElementById('ej-container').innerHTML = '';
+                log('Editor.js 已销毁');
+            } catch (error) {
+                log('销毁 Editor.js 失败: ' + error.message);
+            }
+        };
+        
+        // 清空日志
+        window.clearLog = function() {
+            document.getElementById('test-log').innerHTML = '';
+        };
+        
+        // 页面加载完成
+        log('页面加载完成，可以开始测试');
+    </script>
+</body>
+</html>
+

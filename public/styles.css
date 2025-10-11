@@ -1,0 +1,2072 @@
+/* 字体定义 */
+@font-face {
+    font-family: 'Fusion Pixel';
+    src: url('/font/fusion-pixel-12px-monospaced-zh_hans.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 导航栏样式 */
+.main-navigation {
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+}
+
+.nav-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    margin: 0;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.nav-tabs {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-tab {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    color: #666;
+    font-size: 14px;
+    font-weight: normal;
+    cursor: pointer;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: all 0.3s ease;
+}
+
+.nav-tab:hover {
+    background: #f5f5f5;
+    border-color: #999;
+    color: #000;
+}
+
+.nav-tab.active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+.nav-tab.active:hover {
+    background: #333;
+    border-color: #333;
+}
+
+/* 页面容器样式 */
+.page-container {
+    width: 100%;
+}
+
+/* 管理页面布局样式 */
+.management-layout {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: calc(100vh - 80px);
+}
+
+/* 管理页面标题 */
+.management-header {
+    text-align: center;
+    padding: 20px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.management-header h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #000;
+    margin: 0;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* 备忘录区域 */
+.memo-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 20px;
+}
+
+.memo-content {
+    background: #f8f9fa;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+}
+
+.memo-display p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+    padding-right: 100px; /* 为按钮留出空间 */
+}
+
+.memo-edit {
+    margin-bottom: 12px;
+}
+
+.memo-edit textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #000;
+    background: #fff;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.memo-edit textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.1);
+}
+
+.memo-actions {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+}
+
+.memo-btn {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    color: #666;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: all 0.2s ease;
+}
+
+.memo-btn:hover {
+    background: #f5f5f5;
+    border-color: #999;
+}
+
+.memo-btn.edit-btn {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.memo-btn.edit-btn:hover {
+    background: #e3f2fd;
+    border-color: #0056b3;
+}
+
+.memo-btn.save-btn {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.memo-btn.save-btn:hover {
+    background: #d4edda;
+    border-color: #1e7e34;
+}
+
+/* 管理页面分隔线 */
+.management-divider {
+    height: 1px;
+    background: #e5e5e5;
+    margin: 0 auto 20px;
+    max-width: 1200px;
+}
+
+/* 筛选功能区域 */
+.filter-section {
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    padding: 0 20px;
+}
+
+/* 搜索区域 */
+.search-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.search-container {
+    flex: 0 0 200px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #000;
+    background: #fff;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.1);
+}
+
+.search-status {
+    flex: 1;
+    font-size: 14px;
+    color: #666;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* 筛选按钮区域 */
+.filter-area {
+    margin-bottom: 16px;
+}
+
+.filter-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filter-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    white-space: nowrap;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 4px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 999px; /* 椭圆形状 */
+    background: #fff;
+    color: #000;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.filter-btn:hover {
+    background: #f5f5f5;
+    border-color: #ccc;
+}
+
+.filter-btn.active {
+    background: #666; /* 深灰色背景，与新建页面保持一致 */
+    color: #fff;
+    border-color: #666;
+}
+
+.filter-btn.active:hover {
+    background: #555;
+    border-color: #555;
+}
+
+/* 标签筛选区域 */
+.tag-filter-area {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tag-filter-buttons {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.tag-filter-btn {
+    padding: 4px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 999px; /* 椭圆形状 */
+    background: #fff;
+    color: #000;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.tag-filter-btn:hover {
+    background: #f5f5f5;
+    border-color: #ccc;
+}
+
+.tag-filter-btn.active {
+    background: #666; /* 深灰色背景，与筛选按钮保持一致 */
+    color: #fff;
+    border-color: #666;
+}
+
+.tag-filter-btn.active:hover {
+    background: #555;
+    border-color: #555;
+}
+
+/* 新建分割线 */
+.new-divider {
+    height: 1px;
+    background: #e5e5e5;
+    margin: 0 auto 20px;
+    max-width: 1200px;
+}
+
+/* 文章卡片样式 */
+.article-card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.article-card:hover {
+    border-color: #ccc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.article-card.locked {
+    border-color: #ffc107;
+    background: #fffbf0;
+}
+
+.article-card.hidden {
+    opacity: 0.6;
+    border-color: #6c757d;
+    background: #f8f9fa;
+}
+
+.article-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.article-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+    line-height: 1.4;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    flex: 1;
+    margin-right: 12px;
+}
+
+.article-status {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.status-badge {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.status-badge.draft {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.published {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-badge.locked {
+    background: #ffeaa7;
+    color: #d63031;
+}
+
+.status-badge.hidden {
+    background: #e2e3e5;
+    color: #495057;
+}
+
+.article-summary {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 8px;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.article-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.article-date {
+    font-size: 12px;
+    color: #999;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.article-tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.article-tag {
+    padding: 2px 6px;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    font-size: 10px;
+    color: #666;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.article-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    color: #666;
+    font-size: 11px;
+    cursor: pointer;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.action-btn:hover {
+    background: #f5f5f5;
+    border-color: #999;
+}
+
+.action-btn.edit {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.action-btn.edit:hover {
+    background: #e3f2fd;
+    border-color: #0056b3;
+}
+
+.action-btn.delete {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.action-btn.delete:hover {
+    background: #f8d7da;
+    border-color: #c82333;
+}
+
+.action-btn.view {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.action-btn.view:hover {
+    background: #d4edda;
+    border-color: #1e7e34;
+}
+
+.action-btn.lock {
+    color: #ffc107;
+    border-color: #ffc107;
+}
+
+.action-btn.lock:hover {
+    background: #fff3cd;
+    border-color: #e0a800;
+}
+
+.action-btn.lock.locked {
+    background: #ffc107;
+    color: #000;
+}
+
+.action-btn.hide {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+.action-btn.hide:hover {
+    background: #e2e3e5;
+    border-color: #5a6268;
+}
+
+.action-btn.hide.hidden {
+    background: #6c757d;
+    color: #fff;
+}
+
+/* 空状态样式 */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* 加载状态 */
+.loading-state {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.loading-state p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* 确认删除对话框 */
+.delete-confirm {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.delete-confirm-content {
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.delete-confirm h3 {
+    margin: 0 0 12px 0;
+    font-size: 18px;
+    color: #000;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.delete-confirm p {
+    margin: 0 0 20px 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.delete-confirm-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.confirm-btn {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: all 0.2s ease;
+}
+
+.confirm-btn:hover {
+    background: #f5f5f5;
+    border-color: #999;
+}
+
+.confirm-btn.danger {
+    background: #dc3545;
+    color: #fff;
+    border-color: #dc3545;
+}
+
+/* 编辑页面样式 */
+.edit-header {
+    text-align: center;
+    padding: 20px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.edit-header h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #000;
+    margin: 0 0 12px 0;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.edit-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+    color: #666;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.edit-file-name {
+    font-weight: 500;
+    color: #000;
+}
+
+.edit-section {
+    padding: 4px 8px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.edit-form {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 状态面板样式 - 位于按钮下方 */
+.edit-status-panel {
+    width: 100%;
+    background: #f8f9fa;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 20px;
+}
+
+.status-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.status-panel-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #28a745;
+    transition: all 0.3s ease;
+}
+
+.status-indicator.ready {
+    background: #28a745;
+}
+
+.status-indicator.processing {
+    background: #ffc107;
+    animation: pulse 1.5s infinite;
+}
+
+.status-indicator.error {
+    background: #dc3545;
+}
+
+.status-indicator.success {
+    background: #28a745;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.status-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.status-label {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.status-value {
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+}
+
+.status-log {
+    margin-top: 16px;
+    border-top: 1px solid #e5e5e5;
+    padding-top: 16px;
+}
+
+.log-header {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.log-content {
+    max-height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.log-item {
+    font-size: 12px;
+    color: #666;
+    padding: 4px 8px;
+    background: #fff;
+    border-radius: 4px;
+    border-left: 3px solid #007bff;
+}
+
+.log-item.success {
+    border-left-color: #28a745;
+    color: #155724;
+}
+
+.log-item.error {
+    border-left-color: #dc3545;
+    color: #721c24;
+}
+
+.log-item.warning {
+    border-left-color: #ffc107;
+    color: #856404;
+}
+
+/* 编辑表单内容区域 */
+.edit-form-content {
+    width: 100%;
+}
+
+/* 编辑页面状态提醒样式 */
+.edit-top-notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.edit-top-notification.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.edit-top-notification.error {
+    background: #f44336;
+}
+
+.edit-status-message {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.edit-status-message.show {
+    opacity: 1;
+}
+
+.edit-status-message.success {
+    color: #4CAF50;
+}
+
+.edit-status-message.error {
+    color: #f44336;
+}
+
+/* 编辑器操作按钮样式 */
+.editor-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: #fff;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    border-color: #545b62;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+    border-color: #004085;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .search-area {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-container {
+        flex: none;
+    }
+    
+    .filter-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .filter-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .filter-buttons {
+        justify-content: flex-start;
+    }
+    
+    .tag-filter-area {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .tag-filter-buttons {
+        justify-content: flex-start;
+    }
+    
+    .article-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .article-title {
+        margin-right: 0;
+    }
+    
+    .article-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .article-actions {
+        justify-content: flex-start;
+    }
+    
+    .action-btn {
+        font-size: 10px;
+        padding: 3px 6px;
+    }
+}
+
+.management-sidebar {
+    flex: 1;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #e5e5e5;
+}
+
+.management-main {
+    flex: 3;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #e5e5e5;
+}
+
+/* 侧边栏头部 */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.sidebar-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+}
+
+.draft-count {
+    font-size: 12px;
+    color: #666;
+    background: #e9ecef;
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+
+/* 主内容区头部 */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.main-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+}
+
+.published-count {
+    font-size: 12px;
+    color: #666;
+    background: #e9ecef;
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+
+/* 空状态样式 */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.empty-state p {
+    font-size: 14px;
+    margin: 0;
+}
+
+/* 草稿列表样式 */
+.draft-list {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.draft-item {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.draft-item:hover {
+    border-color: #007bff;
+    box-shadow: 0 2px 4px rgba(0,123,255,0.1);
+}
+
+.draft-item-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 4px;
+}
+
+.draft-item-meta {
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 已发布内容列表样式 */
+.published-list {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.published-item {
+    background: #f8f9fa;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+}
+
+.published-item:hover {
+    border-color: #28a745;
+    box-shadow: 0 2px 4px rgba(40,167,69,0.1);
+}
+
+.published-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.published-item-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+    flex: 1;
+}
+
+.published-item-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    color: #666;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    background: #f5f5f5;
+    border-color: #999;
+}
+
+.action-btn.edit {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.action-btn.delete {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.published-item-meta {
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    gap: 16px;
+}
+
+.published-item-summary {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+    line-height: 1.4;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .management-layout {
+        flex-direction: column;
+        padding: 16px;
+    }
+    
+    .management-sidebar,
+    .management-main {
+        flex: none;
+    }
+}
+
+/* 基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: white;
+    color: #000;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+/* 容器 */
+.container {
+    max-width: 900px;
+    margin: 32px auto;
+    padding: 0 16px;
+}
+
+/* 项目容器 */
+.project {
+    display: block;
+}
+
+/* 项目封面图片 */
+.project-hero {
+    margin: 0 0 20px 0;
+}
+
+.image-upload-area {
+    position: relative;
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.hero-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 12px;
+}
+
+.image-upload-area:hover .upload-overlay {
+    opacity: 1;
+}
+
+.image-upload-area.drag-over {
+    border: 2px dashed #666;
+}
+
+.image-upload-area.drag-over .upload-overlay {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.upload-text {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.resolution-display {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    pointer-events: none;
+}
+
+/* 项目标题输入框 */
+.project-title-input {
+    font-size: 40px;
+    line-height: 1.2;
+    font-weight: bold;
+    margin: 0 0 20px 0;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #000;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    padding: 0;
+}
+
+.project-title-input::placeholder {
+    color: #999;
+}
+
+/* 项目描述输入框 */
+.project-description-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #000;
+    line-height: 1.8;
+    font-size: 14px;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    padding: 0;
+    resize: none; /* 禁止调整大小 */
+}
+
+.project-description-input::placeholder {
+    color: #999;
+}
+
+/* 分隔线 */
+.project-divider {
+    height: 1px;
+    background: #eaeaea;
+    margin: 20px 0;
+}
+
+/* 元信息区域 */
+.project-meta {
+    margin: 0 0 20px 0;
+}
+
+.meta-line {
+    display: flex;
+    align-items: center;
+    margin: 6px 0;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.meta-label {
+    flex: none;
+    min-width: 6px;
+    color: #000000;
+    font-size: 14px;
+}
+
+.meta-label-spaced {
+    margin-left: 24px;
+}
+
+.meta-value {
+    flex: 1;
+    font-size: 14px;
+    color: #000;
+}
+
+/* 分类标签 */
+.category-tags {
+    display: inline-flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.category-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    font-size: 12px;
+    line-height: 1.4;
+    background: #fff;
+    color: #000;
+}
+
+/* 标签输入区域 */
+.tags-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tag-text-input {
+    width: 120px; /* 增加宽度 */
+    font-size: 14px;
+    line-height: 1.6;
+    color: #000;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 4px 8px; /* 0.8倍高度 */
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.tag-text-input:focus {
+    outline: none;
+    border-color: #666;
+}
+
+.tag-text-input::placeholder {
+    color: #999;
+}
+
+.add-tag-btn {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    color: #666;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.add-tag-btn:hover {
+    background: #f5f5f5;
+    border-color: #666;
+    color: #000;
+}
+
+.tag-buttons {
+    display: inline-flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.tag-button-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.tag-button-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tag-button-label {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    font-size: 12px;
+    line-height: 1.4;
+    background: #fff;
+    color: #000;
+    transition: all 0.3s ease;
+}
+
+.tag-button-item input[type="checkbox"]:checked + .tag-button-label {
+    background: #666;
+    color: #fff;
+    border-color: #666;
+}
+
+/* 按钮组 */
+.button-group {
+    display: inline-flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.button-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.button-item input[type="radio"],
+.button-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.button-label {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    font-size: 12px;
+    line-height: 1.4;
+    background: #fff;
+    color: #000;
+    transition: all 0.3s ease;
+}
+
+.button-item input[type="radio"]:checked + .button-label,
+.button-item input[type="checkbox"]:checked + .button-label {
+    background: #666;
+    color: #fff;
+    border-color: #666;
+}
+
+.button-item input[type="radio"]:disabled + .button-label,
+.button-item input[type="checkbox"]:disabled + .button-label {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 项目详情 */
+.project-details {
+    margin: 0;
+}
+
+.detail-line {
+    display: flex;
+    align-items: baseline;
+    margin: 6px 0;
+    gap: 12px;
+}
+
+.detail-label {
+    flex: none;
+    min-width: 66px;
+    color: #666;
+    font-size: 14px;
+}
+
+.detail-value {
+    flex: 1;
+    font-size: 14px;
+    color: #000;
+}
+
+.detail-input {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #000;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 4px 8px; /* 0.8倍高度 */
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.detail-input:focus {
+    outline: none;
+    border-color: #666;
+}
+
+.detail-input::placeholder {
+    color: #999;
+}
+
+/* 时间周期输入 */
+.period-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.period-start-input,
+.period-end-input {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #000;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 4px 8px; /* 0.8倍高度 */
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.period-start-input:focus,
+.period-end-input:focus {
+    outline: none;
+    border-color: #666;
+}
+
+.period-start-input::placeholder,
+.period-end-input::placeholder {
+    color: #999;
+}
+
+.period-separator {
+    color: #666;
+    font-size: 14px;
+    font-weight: normal;
+    flex: none;
+}
+
+/* 链接 */
+.links {
+    display: inline-flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.link {
+    color: #000;
+    text-decoration: underline;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.link:hover {
+    opacity: 0.8;
+}
+
+/* 链接输入区域 */
+.links-input {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.link-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.link-text-input {
+    width: 80px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #000;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 4px 8px; /* 0.8倍高度 */
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.link-url-input {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #000;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding:4px 8px; /* 0.8倍高度 */
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.link-text-input:focus,
+.link-url-input:focus {
+    outline: none;
+    border-color: #666;
+}
+
+.link-text-input::placeholder,
+.link-url-input::placeholder {
+    color: #999;
+}
+
+.add-link-btn {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    color: #666;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.add-link-btn:hover {
+    background: #f5f5f5;
+    border-color: #666;
+    color: #000;
+}
+
+.remove-link-btn {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    color: #666;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.remove-link-btn:hover {
+    background: #f5f5f5;
+    border-color: #666;
+    color: #000;
+}
+
+/* 创建按钮区域 */
+.create-section {
+    margin: 20px 0 30px 0;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-btn {
+    background: #000;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.create-btn:hover {
+    background: #333;
+}
+
+.create-btn:active {
+    background: #666;
+}
+
+.create-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* 创建反馈文本 */
+.create-feedback {
+    font-size: 14px;
+    font-weight: normal;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(-10px);
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.create-feedback.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.create-feedback.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.create-feedback.info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Markdown编辑器区域 */
+.editor-section {
+    margin: 20px 0;
+}
+
+.editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.editor-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    color: #000;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.editor-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+}
+
+.save-btn, .draft-btn, .publish-btn, .new-page-btn {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    font-weight: normal;
+    cursor: pointer;
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: all 0.3s ease;
+}
+
+.save-btn:hover, .draft-btn:hover, .publish-btn:hover, .new-page-btn:hover {
+    background: #f5f5f5;
+    border-color: #666;
+}
+
+.save-btn:active, .draft-btn:active, .publish-btn:active, .new-page-btn:active {
+    background: #e0e0e0;
+}
+
+.save-btn:disabled, .draft-btn:disabled, .publish-btn:disabled, .new-page-btn:disabled {
+    background: #f0f0f0;
+    color: #999;
+    cursor: not-allowed;
+}
+
+/* 新建页面按钮样式 */
+.new-page-btn {
+    background: #e3f2fd;
+    color: #1976d2;
+    border-color: #bbdefb;
+}
+
+.new-page-btn:hover {
+    background: #bbdefb;
+    border-color: #90caf9;
+}
+
+.new-page-btn:active {
+    background: #90caf9;
+}
+
+/* 草稿按钮样式 */
+.draft-btn {
+    background: #fff3cd;
+    color: #856404;
+    border-color: #ffeaa7;
+}
+
+.draft-btn:hover {
+    background: #ffeaa7;
+    border-color: #fdcb6e;
+}
+
+.draft-btn:active {
+    background: #fdcb6e;
+}
+
+.draft-btn:disabled {
+    background: #f0f0f0;
+    border-color: #ddd;
+    color: #999;
+}
+
+/* 发布按钮样式 */
+.publish-btn {
+    background: #000;
+    color: white;
+    border-color: #000;
+}
+
+.publish-btn:hover {
+    background: #333;
+    border-color: #333;
+}
+
+.publish-btn:active {
+    background: #666;
+}
+
+.publish-btn:disabled {
+    background: #ccc;
+    border-color: #ccc;
+    color: #999;
+}
+
+/* 编辑器反馈文本 */
+.editor-feedback {
+    font-size: 14px;
+    font-weight: normal;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(-10px);
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    position: absolute;
+    top: -40px;
+    right: 0;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.editor-feedback.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.editor-feedback.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.editor-feedback.info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#editor {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 800px;
+}
+
+/* Toast UI Editor 样式覆盖 */
+.toastui-editor-defaultUI {
+    border: none !important;
+    border-radius: 8px !important;
+}
+
+.toastui-editor-defaultUI-toolbar {
+    border-bottom: 1px solid #eaeaea !important;
+    background: #f8f9fa !important;
+    border-radius: 8px 8px 0 0 !important;
+}
+
+.toastui-editor-md-container {
+    background: #fff !important;
+}
+
+.toastui-editor-contents {
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+.toastui-editor-md-preview {
+    font-family: 'Fusion Pixel', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* 确保编辑器容器可见 */
+.toastui-editor {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 640px) {
+    .container {
+        padding: 0 12px;
+    }
+    
+    .project-title {
+        font-size: 32px;
+    }
+    
+    .meta-line,
+    .detail-line {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .meta-label,
+    .detail-label {
+        min-width: auto;
+    }
+}
+
+/* 编辑页面响应式设计 */
+@media (max-width: 768px) {
+    .edit-status-panel {
+        margin-top: 16px;
+        padding: 12px;
+    }
+    
+    .status-panel-header {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    
+    .status-content {
+        gap: 8px;
+    }
+    
+    .status-item {
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+    }
+}
+
+/* 图片比例样式 */
+.image-upload-area.aspect-16-9 {
+    aspect-ratio: 16 / 9;
+}
+
+.image-upload-area.aspect-4-3 {
+    aspect-ratio: 4 / 3;
+}
+
+.image-upload-area.aspect-16-9 .hero-image,
+.image-upload-area.aspect-4-3 .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

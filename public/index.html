@@ -1,0 +1,2479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZMH Portfolio Editor</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Toast UI Editor CSS -->
+    <link rel="stylesheet" href="/plugins/toast-ui-editor/dist/toastui-editor.css" />
+    <!-- Toast UI Editor JavaScript -->
+    <script src="/plugins/toast-ui-editor/dist/toastui-editor.js"></script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="main-navigation">
+        <div class="nav-container">
+            <h1 class="nav-title">ZMH Portfolio Editor</h1>
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-page="editor" onclick="switchPage('editor')">新建页面</button>
+                <button class="nav-tab" data-page="management" onclick="switchPage('management')">管理页面</button>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <!-- 编辑器页面内容 -->
+        <div class="page-container" id="editorPage">
+            <div class="project">
+            <div class="project-hero">
+                <div class="image-upload-area" id="imageUploadArea">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0xNzUgMTI1SDIyNVYxNzVIMTc1VjEyNVoiIGZpbGw9IiNDQ0NDQ0MiLz4KPHN2ZyB4PSIxNzUiIHk9IjEyNSIgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiPgo8cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJTNi40OCAyMiAxMiAyMlMyMiAxNy41MiAyMiAxMlMxNy41MiAyIDEyIDJaTTEzIDE3SDExVjE1SDEzVjE3Wk0xMyAxM0gxMVY3SDEzVjEzWiIgZmlsbD0iIzk5OTk5OSIvPgo8L3N2Zz4KPC9zdmc+" alt="项目封面" class="hero-image" id="heroImage">
+                    <div class="upload-overlay">
+                        <div class="upload-text">拖拽图片到此处或点击上传</div>
+                    </div>
+                    <div class="resolution-display" id="resolutionDisplay">1920×1080</div>
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                </div>
+            </div>
+            
+            <input type="text" class="project-title-input" value="" placeholder="新页面">
+            
+            <textarea class="project-description-input" placeholder="请输入项目描述" rows="2"></textarea>
+            
+            <div class="project-divider"></div>
+            
+            <div class="project-meta">
+                <div class="meta-line">
+                    <span class="meta-label">领域:</span>
+                    <div class="button-group">
+                        <label class="button-item">
+                            <input type="radio" name="section" value="zhi" checked>
+                            <span class="button-label">知</span>
+                        </label>
+                        <label class="button-item">
+                            <input type="radio" name="section" value="xing">
+                            <span class="button-label">行</span>
+                        </label>
+                        <label class="button-item">
+                            <input type="radio" name="section" value="he">
+                            <span class="button-label">合</span>
+                        </label>
+                        <label class="button-item">
+                            <input type="radio" name="section" value="yi">
+                            <span class="button-label">一</span>
+                        </label>
+                    </div>
+                    
+                    <span class="meta-label meta-label-spaced">布局:</span>
+                    <div class="button-group">
+                        <label class="button-item">
+                            <input type="radio" name="layout" value="project" checked>
+                            <span class="button-label">项目</span>
+                        </label>
+                        <label class="button-item">
+                            <input type="radio" name="layout" value="article" disabled>
+                            <span class="button-label">文章</span>
+                        </label>
+                        <label class="button-item">
+                            <input type="radio" name="layout" value="observation">
+                            <span class="button-label">观察</span>
+                        </label>
+                    </div>
+                    
+                    <span class="meta-label meta-label-spaced">分类:</span>
+                    <div class="button-group">
+                        <!-- 项目分类 -->
+                        <label class="button-item" id="projectDesign">
+                            <input type="checkbox" name="categories" value="design" checked>
+                            <span class="button-label">设计</span>
+                        </label>
+                        <label class="button-item" id="projectStartup">
+                            <input type="checkbox" name="categories" value="startup" checked>
+                            <span class="button-label">创业</span>
+                        </label>
+                        <label class="button-item" id="projectArt">
+                            <input type="checkbox" name="categories" value="art">
+                            <span class="button-label">艺术</span>
+                        </label>
+                        <label class="button-item" id="projectDev">
+                            <input type="checkbox" name="categories" value="dev">
+                            <span class="button-label">开发</span>
+                        </label>
+                        <label class="button-item" id="projectProduct">
+                            <input type="checkbox" name="categories" value="product">
+                            <span class="button-label">产品</span>
+                        </label>
+                        
+                        <!-- 观察分类 -->
+                        <label class="button-item" id="obsDocumentary" style="display: none;">
+                            <input type="checkbox" name="categories" value="documentary">
+                            <span class="button-label">纪实</span>
+                        </label>
+                        <label class="button-item" id="obsMoment" style="display: none;">
+                            <input type="checkbox" name="categories" value="moment">
+                            <span class="button-label">瞬间</span>
+                        </label>
+                        <label class="button-item" id="obsHumanity" style="display: none;">
+                            <input type="checkbox" name="categories" value="humanity">
+                            <span class="button-label">人文</span>
+                        </label>
+                        <label class="button-item" id="obsLandscape" style="display: none;">
+                            <input type="checkbox" name="categories" value="landscape">
+                            <span class="button-label">风光</span>
+                        </label>
+                    </div>
+                    </div>
+                </div>
+                
+                <div class="meta-line">
+                    <span class="meta-label">标签:</span>
+                    <div class="tags-input">
+                        <input type="text" class="tag-text-input" placeholder="输入标签" value="" id="tagInput">
+                        <button type="button" class="add-tag-btn" onclick="addTag()">✓</button>
+                        <div class="tag-buttons">
+                            <!-- 标签按钮将从服务器动态加载 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-divider"></div>
+            
+            <!-- 项目详情 - 项目布局时显示 -->
+            <div class="project-details" id="projectDetails">
+                <div class="detail-line">
+                    <span class="detail-label">时间周期:</span>
+                    <input type="text" class="detail-input" value="" placeholder="请输入时间周期">
+                </div>
+                
+                <div class="detail-line">
+                    <span class="detail-label">工具:</span>
+                    <input type="text" class="detail-input" value="" placeholder="请输入使用的工具">
+                </div>
+                
+                <div class="detail-line">
+                    <span class="detail-label">客户:</span>
+                    <input type="text" class="detail-input" value="" placeholder="请输入客户名称">
+                </div>
+                
+                <div class="detail-line">
+                    <span class="detail-label">合作者:</span>
+                    <input type="text" class="detail-input" value="" placeholder="请输入合作者信息">
+                </div>
+                
+                <div class="detail-line">
+                    <span class="detail-label">报酬/价格:</span>
+                    <input type="text" class="detail-input" value="" placeholder="请输入报酬或价格">
+                </div>
+                
+                <div class="detail-line">
+                    <span class="detail-label">链接:</span>
+                    <div class="links-input">
+                        <div class="link-row">
+                            <input type="text" class="link-text-input" placeholder="链接名称" value="">
+                            <input type="text" class="link-url-input" placeholder="链接地址" value="">
+                            <button type="button" class="add-link-btn" onclick="addLinkRow()">+</button>
+                            <button type="button" class="remove-link-btn" onclick="removeLinkRow(this)">-</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 观察详情 - 观察布局时显示 -->
+            <div class="observation-details" id="observationDetails" style="display: none;">
+                <div class="detail-line">
+                    <span class="detail-label">拍摄地点:</span>
+                    <input type="text" class="detail-input" value="" placeholder="请输入拍摄地点">
+                </div>
+                
+                <div class="detail-line">
+                    <span class="detail-label">设备:</span>
+                    <input type="text" class="detail-input" value="" placeholder="请输入使用的设备">
+                </div>
+                
+                <div class="detail-line">
+                    <span class="detail-label">拍摄技法:</span>
+                    <input type="text" class="detail-input" value="" placeholder="请输入拍摄技法">
+                </div>
+                
+                <div class="detail-line">
+                    <span class="detail-label">创作灵感:</span>
+                    <textarea class="detail-input" rows="3" placeholder="请输入创作灵感"></textarea>
+                </div>
+            </div>
+            
+            <div class="project-divider"></div>
+            
+            <!-- 创建按钮 -->
+            <div class="create-section">
+                <button type="button" class="create-btn" onclick="createProject()">创建</button>
+                <div class="create-feedback" id="createFeedback"></div>
+            </div>
+            
+            <div class="project-divider"></div>
+            
+            <!-- Markdown Editor Section -->
+            <div class="editor-section">
+                <div class="editor-header">
+                    <h2 class="editor-title">内容编辑</h2>
+                    <div class="editor-actions">
+                        <button type="button" class="new-page-btn" onclick="newPage()">新建页面</button>
+                        <button type="button" class="save-btn" onclick="saveContent()">保存</button>
+                        <button type="button" class="draft-btn" onclick="saveAsDraft()">保存为草稿</button>
+                        <button type="button" class="publish-btn" onclick="publishContent()">发布</button>
+                        <div class="editor-feedback" id="editorFeedback"></div>
+                    </div>
+                </div>
+                <div id="editor" style="min-height: 800px; border: 1px solid #ddd; border-radius: 8px;"></div>
+                <div id="editor-debug" style="margin-top: 10px; padding: 10px; background: #f0f0f0; border-radius: 4px; font-size: 12px;">
+                    <div>编辑器状态: <span id="editor-status">初始化中...</span></div>
+                    <div>Toast UI 状态: <span id="toastui-status">检查中...</span></div>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 编辑页面内容 -->
+        <div class="page-container" id="editPage" style="display: none;">
+            <!-- 编辑页面标题 -->
+            <div class="edit-header">
+                <h1>编辑文章</h1>
+                <div class="edit-info" id="editInfo">
+                    <span class="edit-file-name" id="editFileName">未选择文件</span>
+                    <span class="edit-section" id="editSection"></span>
+                </div>
+            </div>
+            
+            <!-- 顶部状态提醒 -->
+            <div class="edit-top-notification" id="editTopNotification"></div>
+            
+            <!-- 编辑表单 -->
+            <div class="edit-form">
+                <!-- 编辑表单内容 -->
+                <div class="edit-form-content">
+                    <!-- 封面图片区域 -->
+                    <div class="project-hero">
+                        <div class="image-upload-area" id="editImageUploadArea">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0xNzUgMTI1SDIyNVYxNzVIMTc1VjEyNVoiIGZpbGw9IiNDQ0NDQ0MiLz4KPHN2ZyB4PSIxNzUiIHk9IjEyNSIgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiPgo8cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJTNi40OCAyMiAxMiAyMlMyMiAxNy41MiAyMiAxMlMxNy41MiAyIDEyIDJaTTEzIDE3SDExVjE1SDEzVjE3Wk0xMyAxM0gxMVY3SDEzVjEzWiIgZmlsbD0iIzk5OTk5OSIvPgo8L3N2Zz4KPC9zdmc+" alt="项目封面" class="hero-image" id="editHeroImage">
+                            <div class="upload-overlay">
+                                <div class="upload-text">拖拽图片到此处或点击上传</div>
+                            </div>
+                            <div class="resolution-display" id="editResolutionDisplay">1920×1080</div>
+                            <input type="file" id="editImageInput" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                    
+                    <!-- 标题和简介 -->
+                    <input type="text" class="project-title-input" id="editTitle" value="" placeholder="请输入项目标题">
+                    <textarea class="project-description-input" id="editSummary" placeholder="请输入项目描述" rows="2"></textarea>
+                    
+                    <div class="project-divider"></div>
+                    
+                    <!-- 基本信息 -->
+                    <div class="project-meta">
+                    <div class="meta-line">
+                        <span class="meta-label">领域:</span>
+                        <div class="button-group">
+                            <label class="button-item">
+                                <input type="radio" name="editSection" value="zhi">
+                                <span class="button-label">知</span>
+                            </label>
+                            <label class="button-item">
+                                <input type="radio" name="editSection" value="xing">
+                                <span class="button-label">行</span>
+                            </label>
+                            <label class="button-item">
+                                <input type="radio" name="editSection" value="he">
+                                <span class="button-label">合</span>
+                            </label>
+                            <label class="button-item">
+                                <input type="radio" name="editSection" value="yi">
+                                <span class="button-label">一</span>
+                            </label>
+                        </div>
+                        
+                        <span class="meta-label meta-label-spaced">布局:</span>
+                        <div class="button-group">
+                            <label class="button-item">
+                                <input type="radio" name="editLayout" value="project">
+                                <span class="button-label">项目</span>
+                            </label>
+                            <label class="button-item">
+                                <input type="radio" name="editLayout" value="article">
+                                <span class="button-label">文章</span>
+                            </label>
+                            <label class="button-item">
+                                <input type="radio" name="editLayout" value="observation">
+                                <span class="button-label">观察</span>
+                            </label>
+                        </div>
+                        
+                        <span class="meta-label meta-label-spaced">分类:</span>
+                        <div class="button-group">
+                            <label class="button-item">
+                                <input type="checkbox" name="editCategories" value="documentary">
+                                <span class="button-label">纪实</span>
+                            </label>
+                            <label class="button-item">
+                                <input type="checkbox" name="editCategories" value="moment">
+                                <span class="button-label">瞬间</span>
+                            </label>
+                            <label class="button-item">
+                                <input type="checkbox" name="editCategories" value="humanity">
+                                <span class="button-label">人文</span>
+                            </label>
+                            <label class="button-item">
+                                <input type="checkbox" name="editCategories" value="landscape">
+                                <span class="button-label">风光</span>
+                            </label>
+                            <label class="button-item">
+                                <input type="checkbox" name="editCategories" value="discovery">
+                                <span class="button-label">发现</span>
+                            </label>
+                            <label class="button-item">
+                                <input type="checkbox" name="editCategories" value="ecology">
+                                <span class="button-label">生态</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="meta-line">
+                        <span class="meta-label">标签:</span>
+                        <div class="tags-input">
+                            <input type="text" class="tag-text-input" placeholder="输入标签" value="" id="editTagInput">
+                            <button type="button" class="add-tag-btn" onclick="addEditTag()">✓</button>
+                            <div class="tag-buttons" id="editTagButtons">
+                                <!-- 标签按钮将通过JavaScript动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-divider"></div>
+                
+                <!-- 详细信息 -->
+                
+                <div class="project-divider"></div>
+                
+                <!-- 编辑器 -->
+                <div class="project-details">
+                    <div class="detail-line">
+                        <span class="detail-label">内容编辑:</span>
+                    </div>
+                    <div id="editEditor" class="wui-editor"></div>
+                </div>
+                
+                <!-- 操作按钮 -->
+                <div class="project-actions">
+                    <button type="button" class="btn btn-secondary" id="saveBtn">保存</button>
+                    <button type="button" class="btn btn-primary" id="publishBtn">发布</button>
+                    <div class="edit-status-message" id="editStatusMessage"></div>
+                </div>
+                
+                <!-- 状态面板 -->
+                <div class="edit-status-panel" id="editStatusPanel">
+                    <div class="status-panel-header">
+                        <h3>发布状态</h3>
+                        <div class="status-indicator" id="statusIndicator"></div>
+                    </div>
+                    <div class="status-content" id="statusContent">
+                        <div class="status-item">
+                            <span class="status-label">当前状态:</span>
+                            <span class="status-value" id="currentStatus">就绪</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">尝试次数:</span>
+                            <span class="status-value" id="attemptCount">-</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">最后更新:</span>
+                            <span class="status-value" id="lastUpdate">-</span>
+                        </div>
+                        <div class="status-log" id="statusLog">
+                            <div class="log-header">操作日志</div>
+                            <div class="log-content" id="logContent">
+                                <div class="log-item">系统就绪</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 管理页面内容 -->
+        <div class="page-container" id="managementPage" style="display: none;">
+            <!-- 管理页面标题 -->
+            <div class="management-header">
+                <h1>管理页面</h1>
+            </div>
+            
+            <!-- 备忘录区域 -->
+            <div class="memo-section">
+                <div class="memo-content">
+                    <div class="memo-display" id="memoDisplay">
+                        <p>这里是自己给自己写的一些编辑和管理时的备忘录。</p>
+                    </div>
+                    <div class="memo-edit" id="memoEdit" style="display: none;">
+                        <textarea id="memoTextarea" rows="3" placeholder="请输入备忘录内容...">这里是自己给自己写的一些编辑和管理时的备忘录。</textarea>
+                    </div>
+                    <div class="memo-actions">
+                        <button class="memo-btn edit-btn" id="memoEditBtn" onclick="editMemo()">编辑</button>
+                        <button class="memo-btn save-btn" id="memoSaveBtn" onclick="saveMemo()" style="display: none;">保存</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 分隔线 -->
+            <div class="management-divider"></div>
+            
+        <!-- 筛选功能区域 -->
+        <div class="filter-section">
+            <!-- 搜索区域 -->
+            <div class="search-area">
+                <div class="search-container">
+                    <input type="text" id="managementSearch" placeholder="搜索内容..." class="search-input">
+                </div>
+                <div class="search-status" id="searchStatus">
+                    <!-- 搜索状态消息将在这里显示 -->
+                </div>
+            </div>
+            
+            <!-- 筛选按钮区域 -->
+            <div class="filter-area">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <span class="filter-label">领域：</span>
+                        <div class="filter-buttons">
+                            <button class="filter-btn" data-filter="section" data-value="zhi">知</button>
+                            <button class="filter-btn" data-filter="section" data-value="xing">行</button>
+                            <button class="filter-btn" data-filter="section" data-value="he">合</button>
+                            <button class="filter-btn" data-filter="section" data-value="yi">一</button>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <span class="filter-label">分类：</span>
+                        <div class="filter-buttons">
+                            <button class="filter-btn" data-filter="category" data-value="design">设计</button>
+                            <button class="filter-btn" data-filter="category" data-value="art">艺术</button>
+                            <button class="filter-btn" data-filter="category" data-value="dev">开发</button>
+                            <button class="filter-btn" data-filter="category" data-value="product">产品</button>
+                            <button class="filter-btn" data-filter="category" data-value="startup">创业</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 标签筛选区域 -->
+            <div class="tag-filter-area">
+                <span class="filter-label">标签：</span>
+                <div class="tag-filter-buttons" id="tagFilterButtons">
+                    <button class="tag-filter-btn" data-tag="知行合一">知行合一</button>
+                    <button class="tag-filter-btn" data-tag="创业">创业</button>
+                    <button class="tag-filter-btn" data-tag="品牌">品牌</button>
+                    <button class="tag-filter-btn" data-tag="设计">设计</button>
+                    <button class="tag-filter-btn" data-tag="开发">开发</button>
+                    <button class="tag-filter-btn" data-tag="产品">产品</button>
+                    <button class="tag-filter-btn" data-tag="测试">测试</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 新建分割线 -->
+        <div class="new-divider"></div>
+            
+            <div class="management-layout">
+                <!-- 左侧：草稿箱 -->
+                <div class="management-sidebar">
+                    <div class="sidebar-header">
+                        <h3>草稿箱</h3>
+                        <div class="draft-count">0 个草稿</div>
+                    </div>
+                    <div class="draft-list" id="draftList">
+                        <div class="empty-state">
+                            <p>暂无草稿文件</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 右侧：已发布内容管理 -->
+                <div class="management-main">
+                    <div class="main-header">
+                        <h3>已发布内容</h3>
+                        <div class="published-count">0 个已发布</div>
+                    </div>
+                    <div class="published-list" id="publishedList">
+                        <div class="empty-state">
+                            <p>暂无已发布内容</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 页面切换功能
+        function switchPage(pageName) {
+            // 隐藏所有页面
+            const editorPage = document.getElementById('editorPage');
+            const editPage = document.getElementById('editPage');
+            const managementPage = document.getElementById('managementPage');
+            
+            // 移除所有标签的active状态
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 隐藏所有页面
+            editorPage.style.display = 'none';
+            editPage.style.display = 'none';
+            managementPage.style.display = 'none';
+            
+            // 显示选中的页面
+            if (pageName === 'editor') {
+                // 销毁其他页面的编辑器
+                if (window.editEditor && typeof window.editEditor.destroy === 'function') {
+                    window.editEditor.destroy();
+                    window.editEditor = null;
+                }
+                
+                editorPage.style.display = 'block';
+                document.querySelector('[data-page="editor"]').classList.add('active');
+                
+                // 初始化新建页面
+                initMarkdownEditor();
+                loadTagButtons();
+            } else if (pageName === 'edit') {
+                // 销毁其他页面的编辑器
+                if (window.newEditor && typeof window.newEditor.destroy === 'function') {
+                    window.newEditor.destroy();
+                    window.newEditor = null;
+                }
+                
+                editPage.style.display = 'block';
+                // 编辑页面不需要导航按钮激活状态
+            } else if (pageName === 'management') {
+                // 销毁其他页面的编辑器
+                if (window.newEditor && typeof window.newEditor.destroy === 'function') {
+                    window.newEditor.destroy();
+                    window.newEditor = null;
+                }
+                if (window.editEditor && typeof window.editEditor.destroy === 'function') {
+                    window.editEditor.destroy();
+                    window.editEditor = null;
+                }
+                
+                managementPage.style.display = 'block';
+                document.querySelector('[data-page="management"]').classList.add('active');
+                
+                // 切换到管理页面时加载备忘录
+                try {
+                    loadMemo();
+                } catch (error) {
+                    console.error('加载备忘录失败:', error);
+                }
+                
+                // 初始化筛选功能
+                try {
+                    initFilterFunctions();
+                } catch (error) {
+                    console.error('初始化筛选功能失败:', error);
+                }
+                
+                // 加载文章数据
+                try {
+                    loadAllArticles();
+                } catch (error) {
+                    console.error('加载文章数据失败:', error);
+                }
+            }
+        }
+        
+        // 备忘录功能
+        function editMemo() {
+            const memoDisplay = document.getElementById('memoDisplay');
+            const memoEdit = document.getElementById('memoEdit');
+            const memoEditBtn = document.getElementById('memoEditBtn');
+            const memoSaveBtn = document.getElementById('memoSaveBtn');
+            const memoTextarea = document.getElementById('memoTextarea');
+            
+            // 切换到编辑模式
+            memoDisplay.style.display = 'none';
+            memoEdit.style.display = 'block';
+            memoEditBtn.style.display = 'none';
+            memoSaveBtn.style.display = 'inline-block';
+            
+            // 设置textarea的内容
+            const currentText = memoDisplay.querySelector('p').textContent;
+            memoTextarea.value = currentText;
+            
+            // 聚焦到textarea
+            memoTextarea.focus();
+        }
+        
+        function saveMemo() {
+            const memoDisplay = document.getElementById('memoDisplay');
+            const memoEdit = document.getElementById('memoEdit');
+            const memoEditBtn = document.getElementById('memoEditBtn');
+            const memoSaveBtn = document.getElementById('memoSaveBtn');
+            const memoTextarea = document.getElementById('memoTextarea');
+            
+            // 获取新内容
+            const newContent = memoTextarea.value.trim();
+            
+            // 更新显示内容
+            memoDisplay.querySelector('p').textContent = newContent || '这里是自己给自己写的一些编辑和管理时的备忘录。';
+            
+            // 保存到本地存储
+            localStorage.setItem('managementMemo', newContent);
+            
+            // 切换回显示模式
+            memoDisplay.style.display = 'block';
+            memoEdit.style.display = 'none';
+            memoEditBtn.style.display = 'inline-block';
+            memoSaveBtn.style.display = 'none';
+        }
+        
+        function loadMemo() {
+            const memoDisplay = document.getElementById('memoDisplay');
+            const savedMemo = localStorage.getItem('managementMemo');
+            
+            if (savedMemo) {
+                memoDisplay.querySelector('p').textContent = savedMemo;
+            }
+        }
+        
+        // 筛选功能
+        let currentFilters = {
+            search: '',
+            sections: [],
+            layouts: [],
+            categories: [],
+            tags: []
+        };
+        
+    function initFilterFunctions() {
+        const searchInput = document.getElementById('managementSearch');
+        const searchStatus = document.getElementById('searchStatus');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const tagFilterButtons = document.querySelectorAll('.tag-filter-btn');
+        
+        // 搜索功能
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                currentFilters.search = this.value.toLowerCase();
+                updateSearchStatus();
+                applyFilters();
+            });
+        }
+        
+        // 筛选按钮功能
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filterType = this.dataset.filter;
+                const filterValue = this.dataset.value;
+                
+                // 切换按钮状态
+                this.classList.toggle('active');
+                
+                // 更新筛选条件
+                if (this.classList.contains('active')) {
+                    if (!currentFilters[filterType + 's'].includes(filterValue)) {
+                        currentFilters[filterType + 's'].push(filterValue);
+                    }
+                } else {
+                    const index = currentFilters[filterType + 's'].indexOf(filterValue);
+                    if (index > -1) {
+                        currentFilters[filterType + 's'].splice(index, 1);
+                    }
+                }
+                
+                updateSearchStatus();
+                applyFilters();
+            });
+        });
+        
+        // 标签筛选功能
+        tagFilterButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tagValue = this.dataset.tag;
+                
+                // 切换按钮状态
+                this.classList.toggle('active');
+                
+                // 更新筛选条件
+                if (this.classList.contains('active')) {
+                    if (!currentFilters.tags.includes(tagValue)) {
+                        currentFilters.tags.push(tagValue);
+                    }
+                } else {
+                    const index = currentFilters.tags.indexOf(tagValue);
+                    if (index > -1) {
+                        currentFilters.tags.splice(index, 1);
+                    }
+                }
+                
+                updateSearchStatus();
+                applyFilters();
+            });
+        });
+    }
+    
+    function updateSearchStatus() {
+        const searchStatus = document.getElementById('searchStatus');
+        if (!searchStatus) return;
+        
+        const hasSearch = currentFilters.search.length > 0;
+        const hasSections = currentFilters.sections.length > 0;
+        const hasLayouts = currentFilters.layouts.length > 0;
+        const hasCategories = currentFilters.categories.length > 0;
+        const hasTags = currentFilters.tags.length > 0;
+        
+        let statusText = '';
+        
+        if (hasSearch) {
+            statusText += `搜索: "${currentFilters.search}"`;
+        }
+        
+        if (hasSections) {
+            if (statusText) statusText += ' | ';
+            statusText += `领域: ${currentFilters.sections.join(', ')}`;
+        }
+        
+        if (hasLayouts) {
+            if (statusText) statusText += ' | ';
+            statusText += `布局: ${currentFilters.layouts.join(', ')}`;
+        }
+        
+        if (hasCategories) {
+            if (statusText) statusText += ' | ';
+            statusText += `分类: ${currentFilters.categories.join(', ')}`;
+        }
+        
+        if (hasTags) {
+            if (statusText) statusText += ' | ';
+            statusText += `标签: ${currentFilters.tags.join(', ')}`;
+        }
+        
+        if (statusText) {
+            searchStatus.textContent = `当前筛选: ${statusText}`;
+        } else {
+            searchStatus.textContent = '';
+        }
+    }
+        
+    function applyFilters() {
+        // 应用筛选条件
+        filteredArticles = allArticles.filter(article => {
+            // 搜索筛选
+            if (currentFilters.search) {
+                const searchTerm = currentFilters.search.toLowerCase();
+                const matchesSearch = 
+                    article.title.toLowerCase().includes(searchTerm) ||
+                    article.summary.toLowerCase().includes(searchTerm) ||
+                    article.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+                if (!matchesSearch) return false;
+            }
+            
+            // 领域筛选
+            if (currentFilters.sections.length > 0) {
+                if (!currentFilters.sections.includes(article.section)) return false;
+            }
+            
+            // 分类筛选
+            if (currentFilters.categories.length > 0) {
+                const hasMatchingCategory = article.categories.some(category => 
+                    currentFilters.categories.includes(category)
+                );
+                if (!hasMatchingCategory) return false;
+            }
+            
+            // 标签筛选
+            if (currentFilters.tags.length > 0) {
+                const hasMatchingTag = article.tags.some(tag => 
+                    currentFilters.tags.includes(tag)
+                );
+                if (!hasMatchingTag) return false;
+            }
+            
+            return true;
+        });
+        
+        // 更新显示
+        updateDraftList();
+        updatePublishedList();
+    }
+        
+    // 全局变量存储文章数据
+    let allArticles = [];
+    let filteredArticles = [];
+    
+    // 加载所有文章数据
+    async function loadAllArticles() {
+        try {
+            const response = await fetch('/api/drafts');
+            if (!response.ok) {
+                throw new Error('获取文章数据失败');
+            }
+            allArticles = await response.json();
+            filteredArticles = [...allArticles];
+            updateDraftList();
+            updatePublishedList();
+        } catch (error) {
+            console.error('加载文章数据失败:', error);
+            showError('加载文章数据失败: ' + error.message);
+        }
+    }
+    
+    function updateDraftList() {
+        const draftList = document.getElementById('draftList');
+        const draftCount = document.querySelector('.draft-count');
+        
+        // 筛选草稿
+        const drafts = filteredArticles.filter(article => article.isDraft);
+        
+        // 更新计数
+        if (draftCount) {
+            draftCount.textContent = `${drafts.length} 个草稿`;
+        }
+        
+        // 更新列表
+        if (draftList) {
+            if (drafts.length === 0) {
+                draftList.innerHTML = '<div class="empty-state"><p>暂无草稿文件</p></div>';
+            } else {
+                draftList.innerHTML = drafts.map(article => createArticleCard(article)).join('');
+            }
+        }
+    }
+    
+    function updatePublishedList() {
+        const publishedList = document.getElementById('publishedList');
+        const publishedCount = document.querySelector('.published-count');
+        
+        // 筛选已发布内容
+        const published = filteredArticles.filter(article => article.isPublished);
+        
+        // 更新计数
+        if (publishedCount) {
+            publishedCount.textContent = `${published.length} 个已发布`;
+        }
+        
+        // 更新列表
+        if (publishedList) {
+            if (published.length === 0) {
+                publishedList.innerHTML = '<div class="empty-state"><p>暂无已发布内容</p></div>';
+            } else {
+                publishedList.innerHTML = published.map(article => createArticleCard(article)).join('');
+            }
+        }
+    }
+    
+    // 创建文章卡片HTML
+    function createArticleCard(article) {
+        const statusBadges = [];
+        if (article.isDraft) statusBadges.push('<span class="status-badge draft">草稿</span>');
+        if (article.isPublished) statusBadges.push('<span class="status-badge published">已发布</span>');
+        if (article.isLocked) statusBadges.push('<span class="status-badge locked">锁定</span>');
+        if (article.isHidden) statusBadges.push('<span class="status-badge hidden">隐藏</span>');
+        
+        const tags = Array.isArray(article.tags) ? article.tags : [];
+        const tagsHtml = tags.map(tag => `<span class="article-tag">${tag}</span>`).join('');
+        
+        const cardClass = [];
+        if (article.isLocked) cardClass.push('locked');
+        if (article.isHidden) cardClass.push('hidden');
+        
+        // 构建操作按钮
+        let actionButtons = `
+            <button class="action-btn edit" onclick="editArticle('${article.section}', '${article.fileName}')">编辑</button>
+            <button class="action-btn view" onclick="viewArticle('${article.section}', '${article.fileName}')">查看</button>
+            <button class="action-btn delete" onclick="confirmDelete('${article.section}', '${article.fileName}', '${article.title}')">删除</button>
+        `;
+        
+        // 只有已发布的文章才显示锁定和隐藏按钮
+        if (article.isPublished) {
+            actionButtons += `
+                <button class="action-btn lock ${article.isLocked ? 'locked' : ''}" onclick="toggleLock('${article.section}', '${article.fileName}', ${article.isLocked})">
+                    ${article.isLocked ? '解锁' : '锁定'}
+                </button>
+                <button class="action-btn hide ${article.isHidden ? 'hidden' : ''}" onclick="toggleHide('${article.section}', '${article.fileName}', ${article.isHidden})">
+                    ${article.isHidden ? '显示' : '隐藏'}
+                </button>
+            `;
+        }
+        
+        return `
+            <div class="article-card ${cardClass.join(' ')}" data-section="${article.section}" data-file="${article.fileName}">
+                <div class="article-header">
+                    <h4 class="article-title">${article.title}</h4>
+                    <div class="article-status">
+                        ${statusBadges.join('')}
+                    </div>
+                </div>
+                <div class="article-summary">${article.summary}</div>
+                <div class="article-meta">
+                    <div class="article-date">${formatDate(article.date)}</div>
+                    <div class="article-tags">${tagsHtml}</div>
+                </div>
+                <div class="article-actions">
+                    ${actionButtons}
+                </div>
+            </div>
+        `;
+    }
+    
+    // 格式化日期
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('zh-CN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        });
+    }
+    
+    // 编辑文章
+    function editArticle(section, fileName) {
+        // 跳转到编辑页面
+        switchPage('edit');
+        
+        // 延迟加载文章数据，确保编辑器已初始化
+        setTimeout(() => {
+            loadArticleForEdit(section, fileName);
+        }, 100);
+    }
+    
+    // 加载文章数据到编辑页面
+    async function loadArticleForEdit(section, fileName) {
+        try {
+            const response = await fetch(`/api/projects/${section}/${fileName}`);
+            if (!response.ok) {
+                throw new Error('获取文章数据失败');
+            }
+            const article = await response.json();
+            
+            // 更新编辑页面标题信息
+            document.getElementById('editFileName').textContent = article.fileName;
+            document.getElementById('editSection').textContent = getSectionDisplayName(article.section);
+            
+            // 填充表单数据
+            document.getElementById('editTitle').value = article.title;
+            document.getElementById('editSummary').value = article.summary;
+            
+            // 填充领域
+            const sectionRadio = document.querySelector(`input[name="editSection"][value="${article.section}"]`);
+            if (sectionRadio) {
+                sectionRadio.checked = true;
+            }
+            
+            // 填充布局
+            const layoutRadio = document.querySelector(`input[name="editLayout"][value="${article.layout || 'project'}"]`);
+            if (layoutRadio) {
+                layoutRadio.checked = true;
+            }
+            
+            // 填充分类
+            const categoryCheckboxes = document.querySelectorAll('input[name="editCategories"]');
+            categoryCheckboxes.forEach(checkbox => {
+                checkbox.checked = article.categories.includes(checkbox.value);
+            });
+            
+            // 加载标签按钮
+            loadEditTagButtons();
+            
+            // 填充标签
+            if (article.tags && Array.isArray(article.tags) && article.tags.length > 0) {
+                article.tags.forEach(tag => {
+                    const tagCheckbox = document.querySelector(`input[name="editTags"][value="${tag}"]`);
+                    if (tagCheckbox) {
+                        tagCheckbox.checked = true;
+                    }
+                });
+            }
+            
+            // 填充详细信息
+            document.getElementById('editPeriod').value = article.period || '';
+            document.getElementById('editTools').value = article.tools || '';
+            document.getElementById('editClient').value = article.client || '';
+            document.getElementById('editCollaborators').value = article.collaborators || '';
+            document.getElementById('editFee').value = article.fee || '';
+            
+            // 填充链接
+            const linksInput = document.getElementById('editLinksInput');
+            if (article.links && Array.isArray(article.links) && article.links.length > 0) {
+                // 清空现有链接行
+                linksInput.innerHTML = '';
+                
+                // 添加链接行
+                article.links.forEach((link, index) => {
+                    const linkRow = document.createElement('div');
+                    linkRow.className = 'link-row';
+                    linkRow.innerHTML = `
+                        <input type="text" class="link-text-input" placeholder="链接名称" value="${link.name || ''}">
+                        <input type="text" class="link-url-input" placeholder="链接地址" value="${link.url || ''}">
+                        ${index === article.links.length - 1 ? 
+                            '<button type="button" class="add-link-btn" onclick="addEditLinkRow()">+</button>' :
+                            '<button type="button" class="remove-link-btn" onclick="removeEditLinkRow(this)">-</button>'
+                        }
+                    `;
+                    linksInput.appendChild(linkRow);
+                });
+            }
+            
+            // 初始化图片上传功能
+            initEditImageUpload();
+            
+            // 初始化编辑器
+            initEditEditor();
+            
+            // 延迟填充编辑器内容，确保编辑器完全初始化
+            setTimeout(() => {
+                if (window.editEditor && typeof window.editEditor.setMarkdown === 'function' && article.content) {
+                    window.editEditor.setMarkdown(article.content);
+                } else {
+                    console.warn('编辑器未完全初始化，再次延迟加载内容...');
+                    setTimeout(() => {
+                        if (window.editEditor && typeof window.editEditor.setMarkdown === 'function' && article.content) {
+                            window.editEditor.setMarkdown(article.content);
+                        }
+                    }, 500);
+                }
+            }, 200);
+            
+            // 存储当前编辑的文件信息
+            window.currentEditingFile = { section, fileName };
+            
+        } catch (error) {
+            console.error('加载文章数据失败:', error);
+            showError('加载文章数据失败: ' + error.message);
+        }
+    }
+    
+    // 查看文章
+    function viewArticle(section, fileName) {
+        // 构建文章URL - 根据实际网站URL格式
+        // 示例：https://zmh.life/xing/%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%952/
+        const baseUrl = 'https://zmh.life';
+        const articleSlug = fileName.replace('.md', '');
+        const encodedSlug = encodeURIComponent(articleSlug);
+        const articleUrl = `${baseUrl}/${section}/${encodedSlug}/`;
+        
+        window.open(articleUrl, '_blank');
+    }
+    
+    // 切换锁定状态
+    async function toggleLock(section, fileName, currentLocked) {
+        try {
+            const response = await fetch(`/api/projects/${section}/${fileName}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    isLocked: !currentLocked
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error('更新锁定状态失败');
+            }
+            
+            // 更新本地数据
+            const article = allArticles.find(a => a.section === section && a.fileName === fileName);
+            if (article) {
+                article.isLocked = !currentLocked;
+            }
+            
+            // 重新加载列表
+            loadAllArticles();
+            
+        } catch (error) {
+            console.error('切换锁定状态失败:', error);
+            showError('切换锁定状态失败: ' + error.message);
+        }
+    }
+    
+    // 切换隐藏状态
+    async function toggleHide(section, fileName, currentHidden) {
+        try {
+            const response = await fetch(`/api/projects/${section}/${fileName}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    isHidden: !currentHidden
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error('更新隐藏状态失败');
+            }
+            
+            // 更新本地数据
+            const article = allArticles.find(a => a.section === section && a.fileName === fileName);
+            if (article) {
+                article.isHidden = !currentHidden;
+            }
+            
+            // 重新加载列表
+            loadAllArticles();
+            
+        } catch (error) {
+            console.error('切换隐藏状态失败:', error);
+            showError('切换隐藏状态失败: ' + error.message);
+        }
+    }
+    
+    // 确认删除
+    function confirmDelete(section, fileName, title) {
+        const confirmDialog = document.createElement('div');
+        confirmDialog.className = 'delete-confirm';
+        confirmDialog.innerHTML = `
+            <div class="delete-confirm-content">
+                <h3>确认删除</h3>
+                <p>确定要删除文章"${title}"吗？此操作无法撤销。</p>
+                <div class="delete-confirm-actions">
+                    <button class="confirm-btn" onclick="closeDeleteConfirm()">取消</button>
+                    <button class="confirm-btn danger" onclick="deleteArticle('${section}', '${fileName}')">删除</button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(confirmDialog);
+    }
+    
+    // 关闭删除确认对话框
+    function closeDeleteConfirm() {
+        const confirmDialog = document.querySelector('.delete-confirm');
+        if (confirmDialog) {
+            confirmDialog.remove();
+        }
+    }
+    
+    // 删除文章
+    async function deleteArticle(section, fileName) {
+        try {
+            const response = await fetch(`/api/projects/${section}/${fileName}`, {
+                method: 'DELETE'
+            });
+            
+            if (!response.ok) {
+                throw new Error('删除文章失败');
+            }
+            
+            // 关闭确认对话框
+            closeDeleteConfirm();
+            
+            // 从本地数据中移除
+            allArticles = allArticles.filter(a => !(a.section === section && a.fileName === fileName));
+            filteredArticles = [...allArticles];
+            
+            // 重新加载列表
+            updateDraftList();
+            updatePublishedList();
+            
+            showSuccess('文章删除成功');
+            
+        } catch (error) {
+            console.error('删除文章失败:', error);
+            showError('删除文章失败: ' + error.message);
+        }
+    }
+    
+    // 显示成功消息
+    function showSuccess(message) {
+        // 简单的成功提示，可以后续优化
+        alert('✅ ' + message);
+    }
+    
+    // 显示错误消息
+    function showError(message) {
+        // 简单的错误提示，可以后续优化
+        alert('❌ ' + message);
+    }
+    
+    // 编辑页面顶部提醒
+    function showEditTopNotification(message, type = 'success') {
+        const notification = document.getElementById('editTopNotification');
+        if (!notification) return;
+        
+        // 清除之前的类
+        notification.classList.remove('show', 'error');
+        
+        // 设置消息和类型
+        notification.textContent = message;
+        notification.classList.add('show');
+        
+        if (type === 'error') {
+            notification.classList.add('error');
+        }
+        
+        // 3秒后自动隐藏
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+    
+    // 编辑页面右侧状态提醒
+    function showEditStatusMessage(message, type = 'success') {
+        const statusMessage = document.getElementById('editStatusMessage');
+        if (!statusMessage) return;
+        
+        // 清除之前的类
+        statusMessage.classList.remove('show', 'success', 'error');
+        
+        // 设置消息和类型
+        statusMessage.textContent = message;
+        statusMessage.classList.add('show', type);
+        
+        // 5秒后自动隐藏
+        setTimeout(() => {
+            statusMessage.classList.remove('show');
+        }, 5000);
+    }
+    
+    // 更新状态面板
+    function updateStatusPanel(status, attempt = null, message = null) {
+        const statusIndicator = document.getElementById('statusIndicator');
+        const currentStatus = document.getElementById('currentStatus');
+        const attemptCount = document.getElementById('attemptCount');
+        const lastUpdate = document.getElementById('lastUpdate');
+        const logContent = document.getElementById('logContent');
+        
+        if (statusIndicator) {
+            statusIndicator.className = `status-indicator ${status}`;
+        }
+        
+        if (currentStatus) {
+            const statusTexts = {
+                'ready': '就绪',
+                'processing': '发布中...',
+                'success': '发布成功',
+                'error': '发布失败'
+            };
+            currentStatus.textContent = statusTexts[status] || status;
+        }
+        
+        if (attempt !== null && attemptCount) {
+            attemptCount.textContent = attempt;
+        }
+        
+        if (lastUpdate) {
+            lastUpdate.textContent = new Date().toLocaleTimeString();
+        }
+        
+        if (message && logContent) {
+            const logItem = document.createElement('div');
+            logItem.className = `log-item ${status}`;
+            logItem.textContent = `${new Date().toLocaleTimeString()} - ${message}`;
+            logContent.appendChild(logItem);
+            
+            // 保持日志在底部
+            logContent.scrollTop = logContent.scrollHeight;
+            
+            // 限制日志条数
+            const logItems = logContent.querySelectorAll('.log-item');
+            if (logItems.length > 10) {
+                logItems[0].remove();
+            }
+        }
+    }
+    
+    // 添加日志条目
+    function addStatusLog(message, type = 'info') {
+        const logContent = document.getElementById('logContent');
+        if (!logContent) return;
+        
+        const logItem = document.createElement('div');
+        logItem.className = `log-item ${type}`;
+        logItem.textContent = `${new Date().toLocaleTimeString()} - ${message}`;
+        logContent.appendChild(logItem);
+        
+        // 保持日志在底部
+        logContent.scrollTop = logContent.scrollHeight;
+        
+        // 限制日志条数
+        const logItems = logContent.querySelectorAll('.log-item');
+        if (logItems.length > 10) {
+            logItems[0].remove();
+        }
+    }
+        
+    // 获取领域显示名称
+    function getSectionDisplayName(section) {
+        const sectionNames = {
+            'zhi': '知 - 知识分享',
+            'xing': '行 - 作品展示',
+            'he': '合 - 合作项目',
+            'yi': '一 - 个人项目'
+        };
+        return sectionNames[section] || section;
+    }
+    
+    // 加载编辑页面的标签按钮
+    function loadEditTagButtons() {
+        const tagButtonsContainer = document.getElementById('editTagButtons');
+        const tags = ['知行合一', '创业', '品牌', '设计', '开发', '产品', '测试'];
+        
+        tagButtonsContainer.innerHTML = tags.map(tag => `
+            <label class="tag-button-item">
+                <input type="checkbox" name="editTags" value="${tag}">
+                <span class="tag-button-label">${tag}</span>
+            </label>
+        `).join('');
+    }
+    
+    // 编辑页面添加标签
+    function addEditTag() {
+        const tagInput = document.getElementById('editTagInput');
+        const tagText = tagInput.value.trim();
+        
+        if (tagText && !document.querySelector(`input[name="editTags"][value="${tagText}"]`)) {
+            const tagButtonsContainer = document.getElementById('editTagButtons');
+            const newTagHTML = `
+                <label class="tag-button-item">
+                    <input type="checkbox" name="editTags" value="${tagText}" checked>
+                    <span class="tag-button-label">${tagText}</span>
+                </label>
+            `;
+            tagButtonsContainer.insertAdjacentHTML('beforeend', newTagHTML);
+            tagInput.value = '';
+        }
+    }
+    
+    // 初始化编辑页面图片上传功能
+    function initEditImageUpload() {
+        const imageUploadArea = document.getElementById('editImageUploadArea');
+        const imageInput = document.getElementById('editImageInput');
+        const heroImage = document.getElementById('editHeroImage');
+        const resolutionDisplay = document.getElementById('editResolutionDisplay');
+        
+        if (!imageUploadArea || !imageInput || !heroImage) return;
+        
+        // 点击上传区域
+        imageUploadArea.addEventListener('click', () => {
+            imageInput.click();
+        });
+        
+        // 拖拽上传
+        imageUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            imageUploadArea.classList.add('drag-over');
+        });
+        
+        imageUploadArea.addEventListener('dragleave', () => {
+            imageUploadArea.classList.remove('drag-over');
+        });
+        
+        imageUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            imageUploadArea.classList.remove('drag-over');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleEditImageUpload(files[0]);
+            }
+        });
+        
+        // 文件选择
+        imageInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleEditImageUpload(e.target.files[0]);
+            }
+        });
+        
+        function handleEditImageUpload(file) {
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    heroImage.src = e.target.result;
+                    // 获取图片尺寸
+                    const img = new Image();
+                    img.onload = () => {
+                        resolutionDisplay.textContent = `${img.width}×${img.height}`;
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    }
+    
+    // 编辑页面添加链接行
+    function addEditLinkRow() {
+        const linksInput = document.getElementById('editLinksInput');
+        const newRow = document.createElement('div');
+        newRow.className = 'link-row';
+        newRow.innerHTML = `
+            <input type="text" class="link-text-input" placeholder="链接名称" value="">
+            <input type="text" class="link-url-input" placeholder="链接地址" value="">
+            <button type="button" class="remove-link-btn" onclick="removeEditLinkRow(this)">-</button>
+        `;
+        linksInput.appendChild(newRow);
+        
+        // 确保只有一个加号按钮
+        const existingRows = linksInput.querySelectorAll('.link-row');
+        existingRows.forEach((row, index) => {
+            const addButton = row.querySelector('.add-link-btn');
+            const removeButton = row.querySelector('.remove-link-btn');
+            
+            if (addButton) {
+                addButton.style.display = index === existingRows.length - 1 ? 'inline-block' : 'none';
+            }
+            if (removeButton) {
+                removeButton.style.display = index === existingRows.length - 1 ? 'none' : 'inline-block';
+            }
+        });
+    }
+    
+    // 编辑页面删除链接行
+    function removeEditLinkRow(button) {
+        const row = button.parentElement;
+        const linksInput = document.getElementById('editLinksInput');
+        
+        if (linksInput.children.length > 1) {
+            row.remove();
+            
+            // 重新调整按钮显示
+            const remainingRows = linksInput.querySelectorAll('.link-row');
+            remainingRows.forEach((row, index) => {
+                const addButton = row.querySelector('.add-link-btn');
+                const removeButton = row.querySelector('.remove-link-btn');
+                
+                if (addButton) {
+                    addButton.style.display = index === remainingRows.length - 1 ? 'inline-block' : 'none';
+                }
+                if (removeButton) {
+                    removeButton.style.display = index === remainingRows.length - 1 ? 'none' : 'inline-block';
+                }
+            });
+        }
+    }
+    
+    // 销毁所有编辑器
+    function destroyAllEditors() {
+        if (window.newEditor && typeof window.newEditor.destroy === 'function') {
+            window.newEditor.destroy();
+            window.newEditor = null;
+        }
+        if (window.editEditor && typeof window.editEditor.destroy === 'function') {
+            window.editEditor.destroy();
+            window.editEditor = null;
+        }
+        if (window.markdownEditor && typeof window.markdownEditor.destroy === 'function') {
+            window.markdownEditor.destroy();
+            window.markdownEditor = null;
+        }
+    }
+    
+    // 初始化编辑页面编辑器
+    function initEditEditor() {
+        const editorElement = document.getElementById('editEditor');
+        if (!editorElement) {
+            console.error('编辑器元素不存在');
+            return;
+        }
+        
+        // 销毁现有编辑器
+        if (window.editEditor && typeof window.editEditor.destroy === 'function') {
+            window.editEditor.destroy();
+        }
+        
+        // 初始化Toast UI Editor
+        window.editEditor = new toastui.Editor({
+            el: editorElement,
+            height: '900px',
+            initialEditType: 'markdown',
+            previewStyle: 'vertical',
+            usageStatistics: false,
+            toolbarItems: [
+                ['heading', 'bold', 'italic', 'strike'],
+                ['hr', 'quote'],
+                ['ul', 'ol', 'task', 'indent', 'outdent'],
+                ['table', 'image', 'link'],
+                ['code', 'codeblock'],
+                ['scrollSync']
+            ],
+            events: {
+                change: function() {
+                    // 编辑器内容变化时的处理
+                }
+            }
+        });
+    }
+    
+    // 保存文章
+    async function saveArticle() {
+        const saveBtn = document.getElementById('saveBtn');
+        const originalText = saveBtn.textContent;
+        
+        try {
+            // 禁用按钮并显示加载状态
+            saveBtn.disabled = true;
+            saveBtn.textContent = '保存中...';
+            
+            // 获取链接数据
+            function getEditLinksData() {
+                const linkRows = document.querySelectorAll('#editLinksInput .link-row');
+                const links = [];
+                linkRows.forEach(row => {
+                    const nameInput = row.querySelector('.link-text-input');
+                    const urlInput = row.querySelector('.link-url-input');
+                    if (nameInput && urlInput && nameInput.value.trim() && urlInput.value.trim()) {
+                        links.push({
+                            name: nameInput.value.trim(),
+                            url: urlInput.value.trim()
+                        });
+                    }
+                });
+                return links;
+            }
+            
+            // 获取表单数据
+            const formData = {
+                section: document.querySelector('input[name="editSection"]:checked')?.value || 'zhi',
+                layout: document.querySelector('input[name="editLayout"]:checked')?.value || 'project',
+                title: document.getElementById('editTitle').value,
+                summary: document.getElementById('editSummary').value,
+                categories: Array.from(document.querySelectorAll('input[name="editCategories"]:checked')).map(cb => cb.value),
+                tags: Array.from(document.querySelectorAll('input[name="editTags"]:checked')).map(cb => cb.value),
+                content: window.editEditor ? window.editEditor.getMarkdown() : '',
+                period: document.getElementById('editPeriod').value,
+                tools: document.getElementById('editTools').value,
+                client: document.getElementById('editClient').value,
+                collaborators: document.getElementById('editCollaborators').value,
+                fee: document.getElementById('editFee').value,
+                links: getEditLinksData()
+            };
+            
+            // 验证必填字段
+            if (!formData.title || !formData.summary) {
+                throw new Error('请填写标题和简介');
+            }
+            
+            // 获取当前编辑的文件信息
+            const currentFile = window.currentEditingFile;
+            console.log('当前编辑文件信息:', currentFile);
+            if (!currentFile) {
+                throw new Error('未找到当前编辑的文件信息');
+            }
+            
+            console.log('准备保存的数据:', {
+                section: currentFile.section,
+                fileName: currentFile.fileName,
+                content: formData.content,
+                title: formData.title,
+                summary: formData.summary,
+                categories: formData.categories,
+                tags: formData.tags,
+                layout: formData.layout
+            });
+            
+            // 调用保存API - 直接覆盖保存到原文件
+            const response = await fetch('/api/save-article', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    section: currentFile.section,
+                    fileName: currentFile.fileName,
+                    content: formData.content,
+                    title: formData.title,
+                    summary: formData.summary,
+                    categories: formData.categories,
+                    tags: formData.tags,
+                    layout: formData.layout
+                })
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || '保存失败');
+            }
+            
+            const result = await response.json();
+            
+            // 显示成功消息 - 使用顶部提醒
+            showEditTopNotification('文章保存成功！', 'success');
+            
+        } catch (error) {
+            console.error('保存失败:', error);
+            showEditTopNotification('保存失败: ' + error.message, 'error');
+        } finally {
+            // 恢复按钮状态
+            saveBtn.disabled = false;
+            saveBtn.textContent = originalText;
+        }
+    }
+    
+    // 发布文章
+    async function publishArticle() {
+        const publishBtn = document.getElementById('publishBtn');
+        const originalText = publishBtn.textContent;
+        
+        try {
+            // 禁用按钮并显示加载状态
+            publishBtn.disabled = true;
+            publishBtn.textContent = '发布中...';
+            
+            // 更新状态面板
+            updateStatusPanel('processing', 0, '开始发布...');
+            addStatusLog('开始发布文章', 'info');
+            
+            // 获取表单数据
+            const formData = {
+                section: document.querySelector('input[name="editSection"]:checked')?.value || 'zhi',
+                layout: document.querySelector('input[name="editLayout"]:checked')?.value || 'project',
+                title: document.getElementById('editTitle').value,
+                summary: document.getElementById('editSummary').value,
+                categories: Array.from(document.querySelectorAll('input[name="editCategories"]:checked')).map(cb => cb.value),
+                tags: Array.from(document.querySelectorAll('input[name="editTags"]:checked')).map(cb => cb.value),
+                content: window.editEditor ? window.editEditor.getMarkdown() : ''
+            };
+            
+            // 验证必填字段
+            if (!formData.title || !formData.summary) {
+                throw new Error('请填写标题和简介');
+            }
+            
+            // 获取当前编辑的文件信息
+            const currentFile = window.currentEditingFile;
+            if (!currentFile) {
+                throw new Error('未找到当前编辑的文件信息');
+            }
+            
+            addStatusLog('准备推送到GitHub...', 'info');
+            
+            // 调用发布API
+            const response = await fetch('/api/publish-content', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    section: currentFile.section,
+                    fileName: currentFile.fileName,
+                    content: formData.content,
+                    title: formData.title
+                })
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || '发布失败');
+            }
+            
+            const result = await response.json();
+            
+            // 更新状态面板为成功
+            updateStatusPanel('success', null, '发布成功！');
+            addStatusLog('文章发布成功！', 'success');
+            
+            // 显示成功消息 - 使用右侧状态提醒
+            showEditStatusMessage('文章发布成功！', 'success');
+            
+            // 跳转回管理页面
+            setTimeout(() => {
+                switchPage('management');
+                loadAllArticles(); // 重新加载文章列表
+            }, 1500);
+            
+        } catch (error) {
+            console.error('发布失败:', error);
+            let errorMessage = '发布失败: ' + error.message;
+            
+            // 检查是否是网络超时错误
+            if (error.message.includes('超时') || error.message.includes('timeout')) {
+                errorMessage = '发布超时，请检查网络连接后重试';
+            } else if (error.message.includes('GitHub')) {
+                errorMessage = 'GitHub推送失败，请检查网络连接和仓库权限';
+            } else if (error.message.includes('3次尝试')) {
+                errorMessage = 'GitHub推送失败，已尝试3次。请检查网络连接或稍后重试';
+            }
+            
+            // 更新状态面板为错误
+            updateStatusPanel('error', null, errorMessage);
+            addStatusLog(errorMessage, 'error');
+            
+            showEditStatusMessage(errorMessage, 'error');
+        } finally {
+            // 恢复按钮状态
+            publishBtn.disabled = false;
+            publishBtn.textContent = originalText;
+        }
+    }
+    
+        // 页面加载时初始化标签按钮
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTagButtons();
+            
+            // 为编辑页面的按钮添加事件监听器
+            const saveBtn = document.getElementById('saveBtn');
+            const publishBtn = document.getElementById('publishBtn');
+            
+            if (saveBtn) {
+                saveBtn.addEventListener('click', saveArticle);
+            }
+            
+            if (publishBtn) {
+                publishBtn.addEventListener('click', publishArticle);
+            }
+            
+            // 添加键盘事件支持
+            const tagInput = document.getElementById('tagInput');
+            tagInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addTag();
+                }
+            });
+            
+            // 初始化图片上传功能
+            initImageUpload();
+            
+            // 初始化分辨率显示
+            updateResolutionDisplay();
+            
+            // 监听窗口大小变化
+            window.addEventListener('resize', updateResolutionDisplay);
+            
+            // 初始化Markdown编辑器
+            initMarkdownEditor();
+            
+            // 监听section变化，重新上传图片
+            document.querySelectorAll('input[name="section"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (window.uploadedImagePath && window.uploadedImageFile) {
+                        console.log('Section changed, re-uploading image to:', this.value);
+                        uploadImageToServer(window.uploadedImageFile);
+                    }
+                });
+            });
+            
+            // 监听布局变化，调整图片比例
+            document.querySelectorAll('input[name="layout"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    updateImageAspectRatio(this.value);
+                });
+            });
+            
+            // 初始化默认布局
+            const defaultLayout = document.querySelector('input[name="layout"]:checked')?.value || 'project';
+            updateImageAspectRatio(defaultLayout);
+        });
+        
+        function loadTagButtons() {
+            const tagButtonsContainer = document.querySelector('.tag-buttons');
+            
+            // 添加一些示例标签
+            const sampleTags = ['创业', '品牌', '设计', '开发', '产品', '测试'];
+            
+            sampleTags.forEach(tag => {
+                addTagButton(tag, tagButtonsContainer);
+            });
+        }
+        
+        function addTagButton(tagText, container) {
+            const tagItem = document.createElement('label');
+            tagItem.className = 'tag-button-item';
+            tagItem.innerHTML = `
+                <input type="checkbox" name="tags" value="${tagText}">
+                <span class="tag-button-label">${tagText}</span>
+            `;
+            container.appendChild(tagItem);
+        }
+        
+        function addTag() {
+            const tagInput = document.getElementById('tagInput');
+            const tagText = tagInput.value.trim();
+            
+            if (tagText) {
+                const tagButtonsContainer = document.querySelector('.tag-buttons');
+                
+                // 检查标签是否已存在
+                const existingTags = Array.from(tagButtonsContainer.querySelectorAll('input[name="tags"]'))
+                    .map(input => input.value);
+                
+                if (!existingTags.includes(tagText)) {
+                    addTagButton(tagText, tagButtonsContainer);
+                }
+                
+                // 清空输入框
+                tagInput.value = '';
+            }
+        }
+        
+        function initImageUpload() {
+            const imageUploadArea = document.getElementById('imageUploadArea');
+            const imageInput = document.getElementById('imageInput');
+            const heroImage = document.getElementById('heroImage');
+            
+            // 点击上传
+            imageUploadArea.addEventListener('click', function() {
+                imageInput.click();
+            });
+            
+            // 文件选择
+            imageInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    handleImageUpload(file);
+                }
+            });
+            
+            // 拖拽上传
+            imageUploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                imageUploadArea.classList.add('drag-over');
+            });
+            
+            imageUploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                imageUploadArea.classList.remove('drag-over');
+            });
+            
+            imageUploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                imageUploadArea.classList.remove('drag-over');
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    const file = files[0];
+                    if (file.type.startsWith('image/')) {
+                        handleImageUpload(file);
+                    }
+                }
+            });
+        }
+        
+        function handleImageUpload(file) {
+            // 保存文件对象，用于重新上传
+            window.uploadedImageFile = file;
+            
+            // 先显示预览
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const heroImage = document.getElementById('heroImage');
+                heroImage.src = e.target.result;
+                updateResolutionDisplay();
+            };
+            reader.readAsDataURL(file);
+            
+            // 上传到服务器
+            uploadImageToServer(file);
+        }
+        
+        function uploadImageToServer(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+            
+            // 获取当前选择的section和title
+            const section = document.querySelector('input[name="section"]:checked')?.value || 'xing';
+            const title = document.querySelector('.project-title-input')?.value || 'untitled';
+            
+            formData.append('section', section);
+            formData.append('projectTitle', title);
+            formData.append('alt', '项目封面图片');
+            
+            console.log('上传图片到服务器:', { section, title });
+            
+            fetch('/api/upload-image', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('图片上传成功:', data);
+                    // 更新图片src为服务器路径
+                    const heroImage = document.getElementById('heroImage');
+                    
+                    // 验证图片是否能正常加载
+                    const testImg = new Image();
+                    testImg.onload = function() {
+                        // 图片加载成功，更新显示
+                        heroImage.src = data.relativePath;
+                        window.uploadedImagePath = data.relativePath;
+                        updateResolutionDisplay();
+                        console.log('图片显示更新成功');
+                    };
+                    testImg.onerror = function() {
+                        // 图片加载失败，保持预览图片
+                        console.error('服务器图片加载失败，保持预览图片');
+                        alert('图片上传成功但显示失败，请重试');
+                    };
+                    testImg.src = data.relativePath;
+                } else {
+                    console.error('图片上传失败:', data.error);
+                    alert('图片上传失败: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('图片上传错误:', error);
+                alert('图片上传失败: ' + error.message);
+            });
+        }
+        
+        function updateResolutionDisplay() {
+            const resolutionDisplay = document.getElementById('resolutionDisplay');
+            const heroImage = document.getElementById('heroImage');
+            const imageUploadArea = document.getElementById('imageUploadArea');
+            
+            if (!resolutionDisplay || !heroImage || !imageUploadArea) return;
+            
+            // 获取当前布局
+            const currentLayout = document.querySelector('input[name="layout"]:checked')?.value || 'project';
+            
+            // 根据布局显示不同的分辨率信息
+            if (currentLayout === 'observation') {
+                resolutionDisplay.textContent = '4:3 竖向';
+            } else {
+                resolutionDisplay.textContent = '16:9 横向';
+            }
+            
+            // 如果有上传的图片且不是默认图片，显示实际尺寸
+            if (heroImage.src && 
+                !heroImage.src.includes('data:image/svg+xml') && 
+                !heroImage.src.includes('Rectangle')) {
+                const img = new Image();
+                img.onload = function() {
+                    resolutionDisplay.textContent = `${this.naturalWidth}×${this.naturalHeight}`;
+                };
+                img.onerror = function() {
+                    // 图片加载失败，保持当前显示
+                    console.warn('图片尺寸获取失败');
+                };
+                img.src = heroImage.src;
+            }
+        }
+        
+        function updateImageAspectRatio(layout) {
+            const imageUploadArea = document.getElementById('imageUploadArea');
+            const resolutionDisplay = document.getElementById('resolutionDisplay');
+            const projectDetails = document.getElementById('projectDetails');
+            const observationDetails = document.getElementById('observationDetails');
+            
+            if (!imageUploadArea || !resolutionDisplay) return;
+            
+            // 移除之前的比例类
+            imageUploadArea.classList.remove('aspect-16-9', 'aspect-4-3');
+            
+            if (layout === 'observation') {
+                // 观察布局使用4:3竖向比例
+                imageUploadArea.classList.add('aspect-4-3');
+                resolutionDisplay.textContent = '4:3 竖向';
+                
+                // 显示观察详情，隐藏项目详情
+                if (projectDetails) projectDetails.style.display = 'none';
+                if (observationDetails) observationDetails.style.display = 'block';
+                
+                // 显示观察分类，隐藏项目分类
+                document.getElementById('projectDesign').style.display = 'none';
+                document.getElementById('projectStartup').style.display = 'none';
+                document.getElementById('projectArt').style.display = 'none';
+                document.getElementById('projectDev').style.display = 'none';
+                document.getElementById('projectProduct').style.display = 'none';
+                
+                document.getElementById('obsDocumentary').style.display = 'block';
+                document.getElementById('obsMoment').style.display = 'block';
+                document.getElementById('obsHumanity').style.display = 'block';
+                document.getElementById('obsLandscape').style.display = 'block';
+                
+            } else {
+                // 项目布局使用16:9横向比例
+                imageUploadArea.classList.add('aspect-16-9');
+                resolutionDisplay.textContent = '16:9 横向';
+                
+                // 显示项目详情，隐藏观察详情
+                if (projectDetails) projectDetails.style.display = 'block';
+                if (observationDetails) observationDetails.style.display = 'none';
+                
+                // 显示项目分类，隐藏观察分类
+                document.getElementById('projectDesign').style.display = 'block';
+                document.getElementById('projectStartup').style.display = 'block';
+                document.getElementById('projectArt').style.display = 'block';
+                document.getElementById('projectDev').style.display = 'block';
+                document.getElementById('projectProduct').style.display = 'block';
+                
+                document.getElementById('obsDocumentary').style.display = 'none';
+                document.getElementById('obsMoment').style.display = 'none';
+                document.getElementById('obsHumanity').style.display = 'none';
+                document.getElementById('obsLandscape').style.display = 'none';
+            }
+            
+            // 更新分辨率显示
+            updateResolutionDisplay();
+        }
+        
+        function addLinkRow() {
+            const linksInput = document.querySelector('.links-input');
+            
+            const newRow = document.createElement('div');
+            newRow.className = 'link-row';
+            newRow.innerHTML = `
+                <input type="text" class="link-text-input" placeholder="链接名称" value="">
+                <input type="text" class="link-url-input" placeholder="链接地址" value="">
+                <button type="button" class="add-link-btn" onclick="addLinkRow()">+</button>
+                <button type="button" class="remove-link-btn" onclick="removeLinkRow(this)">-</button>
+            `;
+            
+            linksInput.appendChild(newRow);
+        }
+        
+        function removeLinkRow(button) {
+            const linkRow = button.closest('.link-row');
+            const linksInput = document.querySelector('.links-input');
+            const allRows = linksInput.querySelectorAll('.link-row');
+            
+            // 至少保留一行
+            if (allRows.length > 1) {
+                linkRow.remove();
+                
+                // 确保至少有一行包含加号按钮
+                const remainingRows = linksInput.querySelectorAll('.link-row');
+                const hasAddButton = Array.from(remainingRows).some(row => 
+                    row.querySelector('.add-link-btn')
+                );
+                
+                if (!hasAddButton && remainingRows.length > 0) {
+                    // 给第一行添加加号按钮
+                    const firstRow = remainingRows[0];
+                    const addButton = document.createElement('button');
+                    addButton.type = 'button';
+                    addButton.className = 'add-link-btn';
+                    addButton.textContent = '+';
+                    addButton.onclick = addLinkRow;
+                    firstRow.appendChild(addButton);
+                }
+            }
+        }
+        
+        function initMarkdownEditor() {
+            // 更新调试信息
+            const toastuiStatus = document.getElementById('toastui-status');
+            const editorStatus = document.getElementById('editor-status');
+            
+            // 检查Toast UI是否加载
+            if (typeof toastui === 'undefined') {
+                toastuiStatus.textContent = '未加载';
+                editorStatus.textContent = '等待Toast UI加载...';
+                console.error('Toast UI Editor not loaded');
+                setTimeout(initMarkdownEditor, 100); // 重试
+                return;
+            }
+            
+            toastuiStatus.textContent = '已加载';
+            editorStatus.textContent = '正在初始化...';
+            
+            try {
+                // 检查编辑器容器
+                const editorEl = document.querySelector('#editor');
+                if (!editorEl) {
+                    throw new Error('Editor container not found');
+                }
+                
+                // 检查可用的API
+                console.log('toastui object:', toastui);
+                console.log('toastui.Editor:', toastui.Editor);
+                
+                // 尝试不同的API调用方式
+                let Editor;
+                if (typeof toastui.Editor === 'function') {
+                    Editor = toastui.Editor;
+                } else if (toastui.Editor && typeof toastui.Editor.default === 'function') {
+                    Editor = toastui.Editor.default;
+                } else {
+                    throw new Error('无法找到 Editor 构造函数');
+                }
+                
+                // 销毁现有编辑器
+                if (window.newEditor && typeof window.newEditor.destroy === 'function') {
+                    window.newEditor.destroy();
+                }
+                
+                // 初始化编辑器
+                window.newEditor = new Editor({
+                    el: editorEl,
+                    height: '800px',
+                    initialEditType: 'markdown',
+                    previewStyle: 'vertical',
+                    initialValue: `# 项目内容
+
+在这里编写你的项目内容...
+
+## 功能特点
+
+- 支持 **Markdown** 语法
+- 支持图表和UML图
+- 实时预览
+
+## 代码示例
+
+\`\`\`javascript
+function hello() {
+    console.log("Hello, World!");
+}
+\`\`\`
+
+## 表格
+
+| 功能 | 状态 | 说明 |
+|------|------|------|
+| Markdown | ✅ | 完全支持 |
+| 图表 | ✅ | 支持Chart.js |
+| UML | ✅ | 支持Mermaid |
+`
+                });
+                
+                // 保存编辑器实例到全局变量
+                window.markdownEditor = window.newEditor;
+                editorStatus.textContent = '初始化成功';
+                console.log('Toast UI Editor initialized successfully');
+                
+                // 恢复保存的内容
+                const savedContent = localStorage.getItem('editorContent');
+                if (savedContent) {
+                    editor.setMarkdown(savedContent);
+                    console.log('已恢复保存的内容');
+                }
+                
+                // 隐藏调试信息
+                setTimeout(() => {
+                    const debugEl = document.getElementById('editor-debug');
+                    if (debugEl) {
+                        debugEl.style.display = 'none';
+                    }
+                }, 3000);
+                
+            } catch (error) {
+                editorStatus.textContent = '初始化失败: ' + error.message;
+                console.error('Error initializing Toast UI Editor:', error);
+                console.log('Available toastui object:', toastui);
+            }
+        }
+        
+        function createProject() {
+            // 先检查基本元素是否存在
+            const titleInput = document.querySelector('.project-title-input');
+            const summaryInput = document.querySelector('.project-description-input');
+            
+            console.log('标题输入框:', titleInput);
+            console.log('描述输入框:', summaryInput);
+            console.log('标题值:', titleInput?.value);
+            console.log('描述值:', summaryInput?.value);
+            
+            // 收集表单数据
+            const formData = collectFormData();
+            
+            // 调试：打印收集到的数据
+            console.log('收集到的表单数据:', formData);
+            
+            // 验证必要字段
+            if (!formData.title || !formData.summary) {
+                showFeedback('请填写项目标题和描述', 'error');
+                console.log('验证失败 - title:', formData.title, 'summary:', formData.summary);
+                return;
+            }
+            
+            // 禁用按钮防止重复提交
+            const createBtn = document.querySelector('.create-btn');
+            createBtn.disabled = true;
+            createBtn.textContent = '创建中...';
+            showFeedback('正在创建项目...', 'info');
+            
+            // 发送请求到服务器
+            fetch('/api/projects', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                console.log('服务器响应状态:', response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('服务器响应数据:', data);
+                if (data.success) {
+                    showFeedback('项目创建成功！', 'success');
+                    // 可以在这里添加其他成功后的操作
+                    console.log('项目文件路径:', data.filePath);
+                } else {
+                    showFeedback('创建失败: ' + data.error, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('请求错误:', error);
+                showFeedback('创建失败: ' + error.message, 'error');
+            })
+            .finally(() => {
+                // 恢复按钮状态
+                createBtn.disabled = false;
+                createBtn.textContent = '创建';
+            });
+        }
+        
+        function showFeedback(message, type) {
+            const feedback = document.getElementById('createFeedback');
+            feedback.textContent = message;
+            feedback.className = `create-feedback ${type}`;
+            
+            // 3秒后自动隐藏
+            setTimeout(() => {
+                feedback.textContent = '';
+                feedback.className = 'create-feedback';
+            }, 3000);
+        }
+        
+        function showEditorFeedback(message, type) {
+            const feedback = document.getElementById('editorFeedback');
+            feedback.textContent = message;
+            feedback.className = `editor-feedback ${type}`;
+            
+            // 3秒后自动隐藏
+            setTimeout(() => {
+                feedback.textContent = '';
+                feedback.className = 'editor-feedback';
+            }, 3000);
+        }
+        
+        function newPage() {
+            if (!window.markdownEditor) {
+                showEditorFeedback('编辑器未初始化', 'error');
+                return;
+            }
+            
+            // 清除编辑器内容
+            window.markdownEditor.setMarkdown('');
+            
+            // 清除本地存储的内容
+            localStorage.removeItem('editorContent');
+            
+            showEditorFeedback('已创建新页面，编辑器内容已清空', 'success');
+        }
+        
+        function saveContent() {
+            if (!window.markdownEditor) {
+                showEditorFeedback('编辑器未初始化', 'error');
+                return;
+            }
+            
+            const content = window.markdownEditor.getMarkdown();
+            localStorage.setItem('editorContent', content);
+            showEditorFeedback('内容已保存到本地', 'success');
+        }
+        
+        function saveAsDraft() {
+            if (!window.markdownEditor) {
+                showEditorFeedback('编辑器未初始化', 'error');
+                return;
+            }
+            
+            // 检查是否有项目信息
+            const title = document.querySelector('.project-title-input')?.value;
+            const section = document.querySelector('input[name="section"]:checked')?.value;
+            
+            if (!title || !section) {
+                showEditorFeedback('请先创建项目', 'error');
+                return;
+            }
+            
+            const content = window.markdownEditor.getMarkdown();
+            const fileName = generateSlug(title) + '.md';
+            
+            // 禁用按钮防止重复提交
+            const draftBtn = document.querySelector('.draft-btn');
+            draftBtn.disabled = true;
+            draftBtn.textContent = '保存中...';
+            showEditorFeedback('正在保存草稿...', 'info');
+            
+            // 发送请求到服务器
+            fetch('/api/save-draft', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    section: section,
+                    fileName: fileName,
+                    content: content,
+                    title: title
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    showEditorFeedback('草稿保存成功！', 'success');
+                    console.log('草稿保存成功:', data);
+                } else {
+                    showEditorFeedback('保存失败: ' + data.error, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('保存错误:', error);
+                showEditorFeedback('保存失败: ' + error.message, 'error');
+            })
+            .finally(() => {
+                // 恢复按钮状态
+                draftBtn.disabled = false;
+                draftBtn.textContent = '保存为草稿';
+            });
+        }
+        
+        function publishContent() {
+            if (!window.markdownEditor) {
+                showEditorFeedback('编辑器未初始化', 'error');
+                return;
+            }
+            
+            // 检查是否有项目信息
+            const title = document.querySelector('.project-title-input')?.value;
+            const section = document.querySelector('input[name="section"]:checked')?.value;
+            
+            if (!title || !section) {
+                showEditorFeedback('请先创建项目', 'error');
+                return;
+            }
+            
+            const content = window.markdownEditor.getMarkdown();
+            const fileName = generateSlug(title) + '.md';
+            
+            // 禁用按钮防止重复提交
+            const publishBtn = document.querySelector('.publish-btn');
+            publishBtn.disabled = true;
+            publishBtn.textContent = '发布中...';
+            showEditorFeedback('正在发布到GitHub...', 'info');
+            
+            // 发送请求到服务器
+            fetch('/api/publish-content', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    section: section,
+                    fileName: fileName,
+                    content: content,
+                    title: title
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    showEditorFeedback('发布成功！网站将自动更新', 'success');
+                    console.log('发布成功:', data);
+                } else {
+                    showEditorFeedback('发布失败: ' + data.error, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('发布错误:', error);
+                showEditorFeedback('发布失败: ' + error.message, 'error');
+            })
+            .finally(() => {
+                // 恢复按钮状态
+                publishBtn.disabled = false;
+                publishBtn.textContent = '发布';
+            });
+        }
+        
+        function generateSlug(title) {
+            if (!title) return 'untitled';
+            
+            return title
+                .toLowerCase()
+                .replace(/[^\w\s\u4e00-\u9fff-]/g, '') // 保留中文字符
+                .replace(/\s+/g, '-')
+                .trim() || 'untitled';
+        }
+        
+        function collectFormData() {
+            // 收集所有表单数据
+            const layout = document.querySelector('input[name="layout"]:checked')?.value || 'project';
+            const data = {
+                // 基本信息
+                title: document.querySelector('.project-title-input')?.value || '',
+                summary: document.querySelector('.project-description-input')?.value || '',
+                
+                // 领域和布局
+                section: document.querySelector('input[name="section"]:checked')?.value || 'xing',
+                layout: layout,
+                
+                // 分类（多选）
+                categories: Array.from(document.querySelectorAll('input[name="categories"]:checked'))
+                    .map(input => input.value),
+                
+                // 标签
+                tags: (() => {
+                    const tagInputs = document.querySelectorAll('.tag-buttons input[name="tags"]:checked');
+                    console.log('找到的标签输入框:', tagInputs);
+                    const tagValues = Array.from(tagInputs).map(input => input.value);
+                    console.log('标签值:', tagValues);
+                    return tagValues;
+                })(),
+                
+                // 封面图片
+                cover: window.uploadedImagePath || document.querySelector('#heroImage')?.src || '',
+                
+                // 编辑器内容
+                content: window.markdownEditor ? window.markdownEditor.getMarkdown() : ''
+            };
+            
+            // 根据布局添加不同的详情字段
+            if (layout === 'project') {
+                // 项目详情
+                data.period = document.querySelector('input[placeholder*="时间周期"]')?.value || '';
+                data.tools = document.querySelector('input[placeholder*="工具"]')?.value || '';
+                data.client = document.querySelector('input[placeholder*="客户"]')?.value || '';
+                data.collaborators = document.querySelector('input[placeholder*="合作者"]')?.value || '';
+                data.fee = document.querySelector('input[placeholder*="报酬"]')?.value || '';
+                data.links = collectLinks();
+            } else if (layout === 'observation') {
+                // 观察详情
+                data.location = document.querySelector('input[placeholder*="拍摄地点"]')?.value || '';
+                data.equipment = document.querySelector('input[placeholder*="设备"]')?.value || '';
+                data.technique = document.querySelector('input[placeholder*="拍摄技法"]')?.value || '';
+                data.inspiration = document.querySelector('textarea[placeholder*="创作灵感"]')?.value || '';
+            }
+            
+            return data;
+        }
+        
+        function collectLinks() {
+            const links = {};
+            const linkRows = document.querySelectorAll('.link-row');
+            
+            linkRows.forEach(row => {
+                const nameInput = row.querySelector('.link-text-input');
+                const urlInput = row.querySelector('.link-url-input');
+                
+                if (nameInput.value && urlInput.value) {
+                    links[nameInput.value] = urlInput.value;
+                }
+            });
+            
+            return links;
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>本地 Editor.js 测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .test-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .editor-container {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 10px 0;
+            min-height: 300px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #f0f0f0;
+        }
+        
+        .btn.primary {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>本地 Editor.js 测试</h1>
+    
+    <div class="test-section">
+        <div class="test-title">Editor.js 本地版本测试</div>
+        <div class="editor-container" id="editor-container"></div>
+        <button class="btn" onclick="testGet()">获取内容</button>
+        <button class="btn" onclick="testSet()">设置内容</button>
+        <button class="btn primary" onclick="testInit()">初始化</button>
+        <button class="btn" onclick="testDestroy()">销毁</button>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">测试日志</div>
+        <div class="log" id="test-log"></div>
+        <button class="btn" onclick="clearLog()">清空日志</button>
+    </div>
+
+    <script type="module">
+        // 日志函数
+        function log(message) {
+            const logEl = document.getElementById('test-log');
+            const time = new Date().toLocaleTimeString();
+            logEl.innerHTML += `[${time}] ${message}<br>`;
+            logEl.scrollTop = logEl.scrollHeight;
+            console.log(message);
+        }
+        
+        let editor = null;
+        
+        // 测试初始化
+        window.testInit = async function() {
+            try {
+                log('开始初始化本地 Editor.js...');
+                
+                // 动态导入本地 Editor.js
+                const editorjs = await import('./@editor-js/dist/editorjs.mjs');
+                log('本地 Editor.js 导入成功: ' + Object.keys(editorjs));
+                
+                // 导入工具
+                const [header, list, image] = await Promise.all([
+                    import('https://cdn.jsdelivr.net/npm/@editorjs/header@2.7.0/dist/bundle.js'),
+                    import('https://cdn.jsdelivr.net/npm/@editorjs/list@1.8.0/dist/bundle.js'),
+                    import('https://cdn.jsdelivr.net/npm/@editorjs/image@2.8.1/dist/bundle.js')
+                ]);
+                
+                log('工具导入成功');
+                
+                const EditorJS = editorjs.default || editorjs.EditorJS;
+                log('EditorJS 类: ' + (EditorJS ? '找到' : '未找到'));
+                
+                // 初始化编辑器
+                editor = new EditorJS({
+                    holder: document.getElementById('editor-container'),
+                    tools: {
+                        header: header.default || header.Header,
+                        list: list.default || list.List,
+                        image: {
+                            class: image.default || image.Image,
+                            config: {
+                                uploader: {
+                                    uploadByFile: async (file) => {
+                                        log('图片上传: ' + file.name);
+                                        return {
+                                            success: 1,
+                                            file: {
+                                                url: 'https://via.placeholder.com/300x200'
+                                            }
+                                        };
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    data: {
+                        blocks: [
+                            {
+                                type: 'header',
+                                data: {
+                                    text: '本地 Editor.js 测试',
+                                    level: 1
+                                }
+                            },
+                            {
+                                type: 'paragraph',
+                                data: {
+                                    text: '这是使用本地 Editor.js 构建的编辑器。'
+                                }
+                            }
+                        ]
+                    },
+                    placeholder: '开始编写内容...',
+                    onChange: () => {
+                        log('内容已更改');
+                    }
+                });
+                
+                log('本地 Editor.js 初始化成功');
+            } catch (error) {
+                log('本地 Editor.js 初始化失败: ' + error.message);
+                console.error(error);
+            }
+        };
+        
+        // 测试获取内容
+        window.testGet = async function() {
+            if (!editor) {
+                log('请先初始化编辑器');
+                return;
+            }
+            
+            try {
+                const outputData = await editor.save();
+                log('获取内容成功: ' + JSON.stringify(outputData).substring(0, 100) + '...');
+            } catch (error) {
+                log('获取内容失败: ' + error.message);
+            }
+        };
+        
+        // 测试设置内容
+        window.testSet = async function() {
+            if (!editor) {
+                log('请先初始化编辑器');
+                return;
+            }
+            
+            try {
+                const newData = {
+                    blocks: [
+                        {
+                            type: 'header',
+                            data: {
+                                text: '新内容',
+                                level: 1
+                            }
+                        },
+                        {
+                            type: 'paragraph',
+                            data: {
+                                text: '这是通过 <code>set()</code> 方法设置的内容。'
+                            }
+                        }
+                    ]
+                };
+                
+                await editor.render(newData);
+                log('内容设置成功');
+            } catch (error) {
+                log('设置内容失败: ' + error.message);
+            }
+        };
+        
+        // 测试销毁
+        window.testDestroy = function() {
+            if (!editor) {
+                log('编辑器未初始化');
+                return;
+            }
+            
+            try {
+                editor.destroy();
+                document.getElementById('editor-container').innerHTML = '';
+                editor = null;
+                log('编辑器已销毁');
+            } catch (error) {
+                log('销毁编辑器失败: ' + error.message);
+            }
+        };
+        
+        // 清空日志
+        window.clearLog = function() {
+            document.getElementById('test-log').innerHTML = '';
+        };
+        
+        // 页面加载完成
+        log('页面加载完成，可以开始测试本地 Editor.js');
+    </script>
+</body>
+</html>
+
