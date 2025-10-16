@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "sync": "node scripts/sync-to-website.js",
+    "sync-push": "node scripts/sync-to-website.js --push"
   },
   "dependencies": {
     "@11ty/eleventy-img": "^6.0.4",
